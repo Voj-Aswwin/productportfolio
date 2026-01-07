@@ -8,13 +8,8 @@ import ImageGallery from './components/ImageGallery';
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  const [scrollY, setScrollY] = useState(0);
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [ampersandLeft, setAmpersandLeft] = useState<string>('275px');
-  const [ampersandTop, setAmpersandTop] = useState<string>('18px');
-  const ampersandTextRef = useRef<HTMLSpanElement>(null);
-  const designTextRef = useRef<HTMLHeadingElement>(null);
+  
   const secondPageRef = useRef<HTMLDivElement>(null);
   const thirdPageRef = useRef<HTMLDivElement>(null);
   const fourthPageRef = useRef<HTMLDivElement>(null);
@@ -34,8 +29,8 @@ function App() {
   ];
 
   const vibeCodedImages = [
-    '/Vibe Coded Images/Screenshot 2026-01-05 at 2.10.47 PM.png',
-    '/Vibe Coded Images/Screenshot 2026-01-05 at 2.11.18 PM.png'
+    '/Image1.png',
+    '/Image2.png'
   ];
 
   const handleResumeDownload = () => {
@@ -50,7 +45,6 @@ function App() {
   useEffect(() => {
     const handleResize = () => {
       setPageHeight(window.innerHeight);
-      setWindowWidth(window.innerWidth);
     };
 
     window.addEventListener('resize', handleResize);
@@ -59,48 +53,12 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      // Intentionally blank: scroll position no longer needed for hero animations.
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-
-  // Calculate ampersand left position based on design text width
-  useEffect(() => {
-    const updateAmpersandLeft = () => {
-      if (designTextRef.current) {
-        const designSpan = designTextRef.current.querySelector('span');
-        if (designSpan) {
-          const designSpanRect = designSpan.getBoundingClientRect();
-          // Position ampersand to the right of design text with spacing
-          // Since text is rotated 90deg, use width + spacing
-          // Responsive spacing: smaller on mobile
-          const spacing = window.innerWidth < 768 ? 10 : 20;
-          const calculatedLeft = designSpanRect.width + spacing;
-          
-          // #region agent log
-          fetch('http://127.0.0.1:7243/ingest/3196ccad-746a-4f33-8531-4846d00e1909',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:54',message:'Calculating ampersand left position',data:{designSpanWidth:designSpanRect.width,calculatedLeft,spacing},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'A'})}).catch(()=>{});
-          // #endregion
-          
-          setAmpersandLeft(`${calculatedLeft}px`);
-          
-          // Update top position based on screen size
-          const topPosition = window.innerWidth < 768 ? '14px' : '18px';
-          setAmpersandTop(topPosition);
-        }
-      }
-    };
-    
-    // Update after initial render and on resize
-    const timeoutId = setTimeout(updateAmpersandLeft, 100);
-    window.addEventListener('resize', updateAmpersandLeft);
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', updateAmpersandLeft);
-    };
-  }, [windowWidth]);
 
   // GSAP animations on mount
   useEffect(() => {
@@ -157,9 +115,6 @@ function App() {
     };
   }, [pageHeight]);
 
-  // Calculate if we're past the first page
-  const isPastFirstPage = scrollY > pageHeight * 0.3;
-
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden" style={{ background: '#FFFFFF' }}>
       <CosmicBackground />
@@ -168,37 +123,7 @@ function App() {
       <section className="relative min-h-screen w-full flex flex-col md:flex-row items-center justify-between px-4 sm:px-8 md:px-16 lg:px-24 py-8 md:py-0 z-10">
         {/* Left Side - Text */}
         <div className="flex-1 flex flex-col justify-center w-full md:w-auto mb-8 md:mb-0">
-          <div className="relative">
-            <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-black leading-none mb-0">
-              <span style={{ fontFamily: "'League Spartan', sans-serif", transform: 'rotate(90deg)' }}>prod,</span>
-            </h1>
-            <h1 
-              ref={designTextRef}
-              className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-black leading-none mb-0 relative inline-block -mt-2 md:-mt-4"
-            >
-              <span style={{ fontFamily: "'League Spartan', sans-serif", transform: 'rotate(90deg)' }}>design</span>
-              {!isPastFirstPage && (
-                <span
-                  ref={ampersandTextRef}
-                  className="absolute inline-block ml-1 md:ml-2"
-                  style={{
-                    fontFamily: "'League Spartan', sans-serif",
-                    fontSize: 'inherit',
-                    lineHeight: 'inherit',
-                    transform: 'rotate(360deg)',
-                    color: 'rgba(255, 107, 107, 1)',
-                    left: ampersandLeft,
-                    top: ampersandTop,
-                  }}
-                >
-                  &
-                </span>
-              )}
-            </h1>
-            <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl xl:text-[12rem] font-bold text-black leading-none -mt-2 md:-mt-4">
-              <span style={{ fontFamily: "'League Spartan', sans-serif", transform: 'rotate(90deg)' }}>tech.</span>
-            </h1>
-          </div>
+          {/* Hero intentionally left blank for now */}
         </div>
       </section>
 

@@ -11,26 +11,28 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        {images.map((imagePath, index) => (
-          <div
-            key={index}
-            onClick={() => setSelectedImage(imagePath)}
-            className="group cursor-pointer bg-white border-2 border-black rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105"
-          >
-            <div className="w-full h-64 md:h-80 overflow-hidden bg-gray-100 flex items-center justify-center">
-              <img
-                src={imagePath}
-                alt={`Gallery image ${index + 1}`}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                onError={(e) => {
-                  console.error('Failed to load image:', imagePath);
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                }}
-              />
+        {images.map((imagePath, index) => {
+          return (
+            <div
+              key={index}
+              onClick={() => setSelectedImage(imagePath)}
+              className="group cursor-pointer bg-white border-2 border-black rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105"
+            >
+              <div className="w-full h-64 md:h-80 overflow-hidden bg-gray-100 flex items-center justify-center">
+                <img
+                  src={imagePath}
+                  alt={`Gallery image ${index + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  onError={(e) => {
+                    console.error('Failed to load image:', imagePath);
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {selectedImage && (

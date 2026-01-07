@@ -25,7 +25,7 @@ const PDFViewer = ({ pdfPath, title, onClose }: PDFViewerProps) => {
         </div>
         <div className="flex-1 overflow-hidden">
           <iframe
-            src={pdfPath}
+            src={encodeURI(pdfPath)}
             className="w-full h-full border-0"
             title={title}
           />
@@ -36,4 +36,5 @@ const PDFViewer = ({ pdfPath, title, onClose }: PDFViewerProps) => {
 };
 
 export default PDFViewer;
+
 
