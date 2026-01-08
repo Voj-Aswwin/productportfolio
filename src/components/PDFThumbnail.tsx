@@ -64,7 +64,8 @@ const PDFThumbnail = ({ pdfPath, className = '' }: PDFThumbnailProps) => {
         // Render the page
         const renderContext = {
           canvasContext: context,
-          viewport: viewport,
+          viewport,
+          canvas,
         };
 
         const renderTask = page.render(renderContext);

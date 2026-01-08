@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { statSync, createReadStream } from 'fs'
+import { statSync, createReadStream, existsSync, rmSync, cpSync } from 'fs'
 import { join, extname } from 'path'
 
 // Simple MIME type mapping
@@ -52,6 +52,19 @@ export default defineConfig({
           next();
         });
       }
+    },
+    {
+      name: 'copy-artifacts-to-dist',
+      apply: 'build',
+      closeBundle() {
+        const srcDir = join(process.cwd(), 'Artefacts');
+        const outDir = join(process.cwd(), 'dist', 'Artefacts');
+
+        if (!existsSync(srcDir)) return;
+
+        rmSync(outDir, { recursive: true, force: true });
+        cpSync(srcDir, outDir, { recursive: true });
+      },
     }
   ],
 })

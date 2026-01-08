@@ -60,8 +60,8 @@ const CosmicBackground = () => {
     let animationFrame: number;
 
     const animate = () => {
-      // Draw white background
-      ctx.fillStyle = '#FFFFFF';
+      // Draw cream background
+      ctx.fillStyle = '#FFF7E6';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw comets with trails
