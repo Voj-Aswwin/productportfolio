@@ -17,6 +17,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
         league: ["'League Spartan'", 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        caveat: ["'Caveat'", 'cursive'],
       },
       animation: {
         'spin-slow': 'spin 20s linear infinite',

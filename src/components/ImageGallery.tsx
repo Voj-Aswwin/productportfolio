@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 interface ImageGalleryProps {
   images: string[];
@@ -35,28 +36,31 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
         })}
       </div>
 
-      {selectedImage && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div className="relative max-w-7xl max-h-[90vh] m-4">
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute -top-12 right-0 p-2 hover:bg-white hover:bg-opacity-20 rounded-full transition-colors z-10"
-              aria-label="Close image viewer"
-            >
-              <X className="w-6 h-6 text-white" />
-            </button>
-            <img
-              src={selectedImage}
-              alt="Full size gallery image"
-              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-        </div>
-      )}
+      {selectedImage &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm"
+            onClick={() => setSelectedImage(null)}
+          >
+            <div className="relative max-w-7xl max-h-[90vh] m-4">
+              <button
+                onClick={() => setSelectedImage(null)}
+                className="absolute -top-12 right-0 p-2 hover:bg-white hover:bg-opacity-20 rounded-full transition-colors z-10"
+                aria-label="Close image viewer"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+              <img
+                src={selectedImage}
+                alt="Full size gallery image"
+                className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          </div>,
+          document.body
+        )}
     </>
   );
 };

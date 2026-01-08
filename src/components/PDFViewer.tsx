@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 interface PDFViewerProps {
   pdfPath: string;
@@ -7,7 +8,10 @@ interface PDFViewerProps {
 }
 
 const PDFViewer = ({ pdfPath, title, onClose }: PDFViewerProps) => {
-  return (
+  // Use a portal so the fixed overlay isn't affected by transformed ancestors (e.g. the horizontal scroll track).
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
       <div className="relative w-full h-full max-w-7xl max-h-[90vh] m-4 flex flex-col bg-white rounded-lg shadow-2xl">
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -31,6 +35,8 @@ const PDFViewer = ({ pdfPath, title, onClose }: PDFViewerProps) => {
         </div>
       </div>
     </div>
+    ,
+    document.body
   );
 };
 
