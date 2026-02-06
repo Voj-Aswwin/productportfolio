@@ -29,7 +29,7 @@ function App() {
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
   const productQuoteRef = useRef<HTMLElement>(null);
   const lifeQuoteRef = useRef<HTMLElement>(null);
-  
+
   const secondPageRef = useRef<HTMLDivElement>(null);
   const thirdPageRef = useRef<HTMLDivElement>(null);
   const fourthPageRef = useRef<HTMLDivElement>(null);
@@ -82,8 +82,8 @@ function App() {
     const ro =
       typeof ResizeObserver !== 'undefined'
         ? new ResizeObserver(() => {
-            applyHeroSubjectCentering();
-          })
+          applyHeroSubjectCentering();
+        })
         : null;
 
     if (ro && heroRowRef.current) ro.observe(heroRowRef.current);
@@ -127,7 +127,7 @@ function App() {
     // Calculate start position (text center + offsets)
     const startX = ((textRect.left + textRect.width / 2 + (textRect.width * arrowConfig.startOffsetX / 100)) - sectionRect.left) / sectionRect.width * 100;
     const startY = ((textRect.top + textRect.height / 2 + (textRect.height * arrowConfig.startOffsetY / 100)) - sectionRect.top) / sectionRect.height * 100;
-    
+
     // Calculate end position (image center + offsets)
     const endX = ((imgRect.left + imgRect.width / 2 + (imgRect.width * arrowConfig.endOffsetX / 100)) - sectionRect.left) / sectionRect.width * 100;
     const endY = ((imgRect.top + imgRect.height / 2 + (imgRect.height * arrowConfig.endOffsetY / 100)) - sectionRect.top) / sectionRect.height * 100;
@@ -143,8 +143,8 @@ function App() {
 
     const ro = typeof ResizeObserver !== 'undefined'
       ? new ResizeObserver(() => {
-          updateArrowPath();
-        })
+        updateArrowPath();
+      })
       : null;
 
     if (ro && heroRowRef.current) ro.observe(heroRowRef.current);
@@ -176,18 +176,18 @@ function App() {
     }
     // Initially hide text and arrow
     gsap.set(textEl, { opacity: 0 });
-    
+
     // Ensure path is updated before trying to hide it
     updateArrowPath();
-    
+
     // Hide arrow path immediately and set strokeDashoffset to hide the path
     const initialPathLength = pathEl.getTotalLength();
     if (initialPathLength > 0 && !isNaN(initialPathLength)) {
       // Path is ready, hide it immediately with stroke dash
-      gsap.set(pathEl, { 
+      gsap.set(pathEl, {
         opacity: 0,
         strokeDasharray: initialPathLength,
-        strokeDashoffset: initialPathLength 
+        strokeDashoffset: initialPathLength
       });
     } else {
       // Path not ready yet, just hide opacity
@@ -199,14 +199,14 @@ function App() {
     }
 
     // #region agent log
-    fetch('http://127.0.0.1:7243/ingest/3196ccad-746a-4f33-8531-4846d00e1909',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:173',message:'Initial hide state',data:{svgOpacity:svgEl?gsap.getProperty(svgEl,'opacity'):null,textElOpacity:gsap.getProperty(textEl,'opacity'),pathElOpacity:gsap.getProperty(pathEl,'opacity'),pathLength:initialPathLength,arrowheadOpacity:arrowheadPath?gsap.getProperty(arrowheadPath,'opacity'):null},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
+    fetch('http://127.0.0.1:7243/ingest/3196ccad-746a-4f33-8531-4846d00e1909', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'App.tsx:173', message: 'Initial hide state', data: { svgOpacity: svgEl ? gsap.getProperty(svgEl, 'opacity') : null, textElOpacity: gsap.getProperty(textEl, 'opacity'), pathElOpacity: gsap.getProperty(pathEl, 'opacity'), pathLength: initialPathLength, arrowheadOpacity: arrowheadPath ? gsap.getProperty(arrowheadPath, 'opacity') : null }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'A' }) }).catch(() => { });
     // #endregion
 
     // Wait for path to be calculated, then set up stroke animation
     const setupPathAnimation = () => {
       const pathLength = pathEl.getTotalLength();
       // #region agent log
-      fetch('http://127.0.0.1:7243/ingest/3196ccad-746a-4f33-8531-4846d00e1909',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:182',message:'Path length check',data:{pathLength,pathElVisible:pathEl.style.opacity||'auto'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7243/ingest/3196ccad-746a-4f33-8531-4846d00e1909', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'App.tsx:182', message: 'Path length check', data: { pathLength, pathElVisible: pathEl.style.opacity || 'auto' }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'B' }) }).catch(() => { });
       // #endregion
       if (pathLength === 0 || isNaN(pathLength)) {
         // Path not ready yet, try again
@@ -216,20 +216,20 @@ function App() {
 
       // Keep SVG hidden until scroll starts - path will be shown when animation begins
       // Don't show SVG here, it will be shown when scroll animation starts
-      gsap.set(pathEl, { 
+      gsap.set(pathEl, {
         opacity: 1,
         strokeDasharray: pathLength,
-        strokeDashoffset: pathLength 
+        strokeDashoffset: pathLength
       });
       // #region agent log
-      fetch('http://127.0.0.1:7243/ingest/3196ccad-746a-4f33-8531-4846d00e1909',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'App.tsx:194',message:'Path setup complete',data:{svgOpacity:svgEl?gsap.getProperty(svgEl,'opacity'):null,pathElOpacity:gsap.getProperty(pathEl,'opacity'),strokeDasharray:pathEl.style.strokeDasharray,strokeDashoffset:pathEl.style.strokeDashoffset},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+      fetch('http://127.0.0.1:7243/ingest/3196ccad-746a-4f33-8531-4846d00e1909', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ location: 'App.tsx:194', message: 'Path setup complete', data: { svgOpacity: svgEl ? gsap.getProperty(svgEl, 'opacity') : null, pathElOpacity: gsap.getProperty(pathEl, 'opacity'), strokeDasharray: pathEl.style.strokeDasharray, strokeDashoffset: pathEl.style.strokeDashoffset }, timestamp: Date.now(), sessionId: 'debug-session', runId: 'run1', hypothesisId: 'B' }) }).catch(() => { });
       // #endregion
 
       // Set up text for animation
       const text = textEl.textContent || '';
       textEl.textContent = '';
       textEl.style.opacity = '1';
-      
+
       const chars = text.split('');
       chars.forEach((char) => {
         const span = document.createElement('span');
@@ -269,29 +269,29 @@ function App() {
 
       // Use the horizontal wrap to calculate scroll position
       const horizontalWrap = horizontalWrapRef.current;
-      
+
       // Force timeline to start at 0 progress initially
       tl.progress(0);
-      
+
       // Use a scroll event listener to manually control timeline progress
       // This is more reliable than ScrollTrigger for pinned containers
       const scrollRange = 400; // Animation completes over 400px of scroll
       const startScrollOffset = 50; // Start animation after 50px of scroll
-      
+
       // Get the scroll position of the horizontal wrap when it first appears
       const getWrapScrollPosition = () => {
         if (!horizontalWrap) return 0;
         const wrapRect = horizontalWrap.getBoundingClientRect();
         return wrapRect.top + window.scrollY;
       };
-      
+
       const wrapStartScrollY = getWrapScrollPosition();
-      
+
       const handleScroll = () => {
         const currentScroll = window.scrollY;
         // Calculate scroll relative to when the wrap section starts
         const scrollDelta = currentScroll - wrapStartScrollY;
-        
+
         if (scrollDelta < startScrollOffset) {
           // Before start threshold, keep at 0 and hide SVG
           if (tl.progress() > 0) {
@@ -314,7 +314,7 @@ function App() {
           tl.progress(progress);
         }
       };
-      
+
       window.addEventListener('scroll', handleScroll, { passive: true });
       // Initial call to set correct state
       handleScroll();
@@ -341,6 +341,7 @@ function App() {
     { name: 'Bliss_Partner_Product.pdf', path: '/Artefacts/Product Design/Bliss_Partner_Product.pdf' },
     { name: 'Upwise.ai.pdf', path: '/Artefacts/Product Design/prodblitz.pdf' },
     { name: 'Rapido.pdf', path: '/Artefacts/Product Design/Rapido.pdf' },
+    { name: 'Streama - Digital Well Being.pdf', path: '/Artefacts/Product Design/Streama - Digital Well Being.pdf' },
   ];
 
   const prdArtifacts = [
@@ -348,8 +349,9 @@ function App() {
   ];
 
   const productTeardownsArtifacts = [
-    { name: 'Inshots Product Breakdown.pdf', path: '/Artefacts/Product Teardowns/Inshots Product Breakdown.pdf' },
-    { name: 'The Souled Store Product Breakdown.pdf', path: '/Artefacts/Product Teardowns/The Souled Store Product Breakdown.pdf' }
+    { name: 'Inshots.pdf', path: '/Artefacts/Product Teardowns/Inshots.pdf' },
+    { name: 'The Souled Store App.pdf', path: '/Artefacts/Product Teardowns/The Souled Store App.pdf' },
+    { name: 'Exalidraw.pdf', path: '/Artefacts/Product Teardowns/Exalidraw.pdf' },
   ];
 
   const vibeCodedImages = [
@@ -366,31 +368,33 @@ function App() {
     document.body.removeChild(link);
   };
 
+  const SHOW_VIBE_PLAYGROUND = false;
+
   const navItems = useMemo(
     () =>
       [
         { id: 'home', label: 'Home' },
         { id: 'proof', label: 'Proof of Work' },
-        { id: 'playground', label: 'Playground' },
+        SHOW_VIBE_PLAYGROUND ? { id: 'playground', label: 'Playground' } : null,
         { id: 'about', label: 'About' },
-      ] as const,
+      ].filter((item): item is { id: string; label: string } => Boolean(item)),
     []
   );
 
   const scrollToSection = (id: string) => {
-    // Desktop-only: Home -> Proof is a horizontal pinned scroll region.
+    setMobileNavOpen(false);
+
+    // Desktop: horizontal pinned scroll region handling
     const isMdUp =
       typeof window !== 'undefined' &&
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(min-width: 768px)').matches;
+
     if (isMdUp && (id === 'home' || id === 'proof')) {
-      const wrap = horizontalWrapRef.current;
-      if (wrap) {
-        const top = wrap.getBoundingClientRect().top + window.scrollY;
-        const horizontalScrollDistance = window.innerWidth; // matches ScrollTrigger end distance
-        const targetY = id === 'proof' ? top + horizontalScrollDistance : top;
+      const st = ScrollTrigger.getById('main-pin');
+      if (st) {
+        const targetY = id === 'home' ? st.start : st.end;
         window.scrollTo({ top: targetY, behavior: 'smooth' });
-        setMobileNavOpen(false);
         return;
       }
     }
@@ -398,7 +402,6 @@ function App() {
     const el = document.getElementById(id);
     if (!el) return;
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    setMobileNavOpen(false);
   };
 
   useEffect(() => {
@@ -410,14 +413,7 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Intentionally blank: scroll position no longer needed for hero animations.
-    };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Hero menu intro animation: expand from center on load
   useEffect(() => {
@@ -454,31 +450,61 @@ function App() {
 
   // Track the currently viewed section to highlight the menu item
   useEffect(() => {
-    const ids = navItems.map((n) => n.id);
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter(Boolean) as HTMLElement[];
-    if (!sections.length) return;
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const isMdUp = window.matchMedia('(min-width: 768px)').matches;
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        // pick the entry with the highest intersection ratio
-        const best = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
-        const id = best?.target?.id as typeof activeSection | undefined;
-        if (id) setActiveSection(id);
-      },
-      {
-        root: null,
-        threshold: [0.2, 0.35, 0.5, 0.65],
-        rootMargin: '-25% 0px -55% 0px',
+      let newActive: typeof activeSection = 'home';
+
+      const aboutSection = document.getElementById('about');
+      const playgroundSection = document.getElementById('playground');
+
+      // Helper to check precise position
+      const isRevealed = (el: HTMLElement | null) => {
+        return el && el.getBoundingClientRect().top < window.innerHeight * 0.55;
+      };
+
+      // Check sections from bottom up (visually) or specific priority
+      if (isRevealed(aboutSection)) {
+        newActive = 'about';
+      } else if (isRevealed(playgroundSection)) {
+        newActive = 'playground';
+      } else {
+        // We are in the Home/Proof horizontal region (or on mobile vertical equivalent)
+        if (isMdUp) {
+          const st = ScrollTrigger.getById('main-pin');
+          if (st) {
+            // We use precise trigger points. 
+            // If we are past the midpoint of the pin sequence, we are in Proof.
+            const mid = st.start + (st.end - st.start) * 0.45;
+            if (scrollY > mid) {
+              newActive = 'proof';
+            } else {
+              newActive = 'home';
+            }
+          } else {
+            newActive = 'home';
+          }
+        } else {
+          // Mobile: Proof is just below Home
+          const proofSection = document.getElementById('proof');
+          if (isRevealed(proofSection)) {
+            newActive = 'proof';
+          } else {
+            newActive = 'home';
+          }
+        }
       }
-    );
 
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, [navItems]);
+      setActiveSection(newActive);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial check
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // GSAP animations on mount
   useLayoutEffect(() => {
@@ -500,6 +526,7 @@ function App() {
         });
 
         ScrollTrigger.create({
+          id: 'main-pin',
           trigger: wrap,
           start: 'top top',
           end: () => `+=${window.innerWidth}`,
@@ -595,7 +622,7 @@ function App() {
       ctx.revert();
       ScrollTrigger.refresh();
     };
-  }, [pageHeight]);
+  }, [pageHeight, SHOW_VIBE_PLAYGROUND]);
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden" style={{ background: '#FFF7E6' }}>
@@ -688,238 +715,242 @@ function App() {
           </div>
         )}
       </nav>
-      
+
       {/* Horizontal region: Home -> Proof (desktop only). Mobile stays vertical stack. */}
       <div ref={horizontalWrapRef} className="relative z-10 w-full md:overflow-hidden">
         <div ref={horizontalTrackRef} className="flex flex-col md:flex-row md:w-[200vw]">
           {/* First Page - Homepage */}
           <section id="home" className="relative h-[100svh] w-full md:w-screen flex items-stretch px-4 sm:px-8 md:px-16 lg:px-24 py-0 scroll-mt-28">
-        <div ref={heroRowRef} className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-stretch justify-between gap-10 md:gap-12 h-full">
-          {/* Left Side - Text */}
-          <div className="w-full md:flex-1 md:h-full flex flex-col justify-center md:justify-center items-start md:translate-x-4 lg:translate-x-6">
-            <h1
-              className="font-league font-black tracking-tight leading-[0.9] text-black select-none text-left w-full flex flex-col gap-[clamp(0.25rem,1.2vmin,1.1rem)]"
-              style={{ fontSize: 'clamp(3.25rem, 22vmin, 80vmin)' }}
-            >
-              <span className="block">
-                <span className="inline-flex items-baseline whitespace-nowrap">
-                  Pr<MorphingO delay={HERO_SEQ.ballDelay} />
-                  <span className="inline-block -ml-[0.05em]">duct,</span>
-                </span>
-              </span>
-              <span className="block">
-                <span className="inline-flex items-baseline whitespace-nowrap">
-                  Busine<span className="inline-block -ml-[0.06em]"><MorphingMoneySS moneyColor="#16a34a" delay={HERO_SEQ.moneyDelay} /></span>
-                </span>
-              </span>
-              <span className="block">
-                <span ref={heroAmpRef} className="inline-block text-red-600 will-change-transform">
-                  &amp;
-                </span>
-                {' '}
-                <span className="inline-block -ml-[0.06em] text-black">Tech.</span>
-              </span>
-            </h1>
-          </div>
+            <div ref={heroRowRef} className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-stretch justify-between gap-10 md:gap-12 h-full">
+              {/* Left Side - Text */}
+              <div className="w-full md:flex-1 md:h-full flex flex-col justify-center md:justify-center items-start md:translate-x-4 lg:translate-x-6">
+                <h1
+                  className="font-league font-black tracking-tight leading-[0.9] text-black select-none text-left w-full flex flex-col gap-[clamp(0.25rem,1.2vmin,1.1rem)]"
+                  style={{ fontSize: 'clamp(3.25rem, 22vmin, 80vmin)' }}
+                >
+                  <span className="block">
+                    <span className="inline-flex items-baseline whitespace-nowrap">
+                      Pr<MorphingO delay={HERO_SEQ.ballDelay} />
+                      <span className="inline-block -ml-[0.05em]">duct,</span>
+                    </span>
+                  </span>
+                  <span className="block">
+                    <span className="inline-flex items-baseline whitespace-nowrap">
+                      Busine<span className="inline-block -ml-[0.06em]"><MorphingMoneySS moneyColor="#16a34a" delay={HERO_SEQ.moneyDelay} /></span>
+                    </span>
+                  </span>
+                  <span className="block">
+                    <span ref={heroAmpRef} className="inline-block text-red-600 will-change-transform">
+                      &amp;
+                    </span>
+                    {' '}
+                    <span className="inline-block -ml-[0.06em] text-black">Tech.</span>
+                  </span>
+                </h1>
+              </div>
 
-          {/* Right Side - Image */}
-          <div className="w-full md:flex-1 md:h-full flex justify-center md:justify-start items-end md:-translate-x-10 lg:-translate-x-14 xl:-translate-x-16">
-            <div className="relative">
-              <img
-                ref={heroImgRef}
-                src="/HeroSectionImage.png"
-                alt="Portrait"
-                className="block h-[82svh] lg:h-[86svh] xl:h-[88svh] w-auto max-w-[92vw] md:max-w-none object-contain select-none pointer-events-none"
-                draggable={false}
-                onLoad={() => {
-                  const img = heroImgRef.current;
-                  try {
-                    if (!img || !img.naturalWidth || !img.naturalHeight) return;
+              {/* Right Side - Image */}
+              <div className="w-full md:flex-1 md:h-full flex justify-center md:justify-start items-end md:-translate-x-10 lg:-translate-x-14 xl:-translate-x-16">
+                <div className="relative">
+                  <img
+                    ref={heroImgRef}
+                    src="/HeroSectionImage.png"
+                    alt="Portrait"
+                    className="block h-[82svh] lg:h-[86svh] xl:h-[88svh] w-auto max-w-[92vw] md:max-w-none object-contain select-none pointer-events-none"
+                    draggable={false}
+                    onLoad={() => {
+                      const img = heroImgRef.current;
+                      try {
+                        if (!img || !img.naturalWidth || !img.naturalHeight) return;
 
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth;
-                    canvas.height = img.naturalHeight;
-                    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-                    if (!ctx) return;
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                        if (!ctx) return;
 
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0);
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0);
 
-                    const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const w = canvas.width;
-                    const h = canvas.height;
-                    const alphaThreshold = 8; // 0..255 (ignore near-transparent pixels)
+                        const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const w = canvas.width;
+                        const h = canvas.height;
+                        const alphaThreshold = 8; // 0..255 (ignore near-transparent pixels)
 
-                    let minX = w,
-                      minY = h,
-                      maxX = -1,
-                      maxY = -1;
-                    for (let y = 0; y < h; y++) {
-                      const row = y * w * 4;
-                      for (let x = 0; x < w; x++) {
-                        const a = data[row + x * 4 + 3];
-                        if (a > alphaThreshold) {
-                          if (x < minX) minX = x;
-                          if (y < minY) minY = y;
-                          if (x > maxX) maxX = x;
-                          if (y > maxY) maxY = y;
+                        let minX = w,
+                          minY = h,
+                          maxX = -1,
+                          maxY = -1;
+                        for (let y = 0; y < h; y++) {
+                          const row = y * w * 4;
+                          for (let x = 0; x < w; x++) {
+                            const a = data[row + x * 4 + 3];
+                            if (a > alphaThreshold) {
+                              if (x < minX) minX = x;
+                              if (y < minY) minY = y;
+                              if (x > maxX) maxX = x;
+                              if (y > maxY) maxY = y;
+                            }
+                          }
                         }
+
+                        const hasOpaque = maxX >= 0 && maxY >= 0 && minX < w && minY < h;
+                        if (!hasOpaque) {
+                          heroAlphaRef.current = null;
+                          return;
+                        }
+
+                        heroAlphaRef.current = {
+                          naturalW: w,
+                          naturalH: h,
+                          bbox: { minX, minY, maxX, maxY, w: maxX - minX + 1, h: maxY - minY + 1 },
+                        };
+                      } finally {
+                        applyHeroSubjectCentering();
                       }
-                    }
-
-                    const hasOpaque = maxX >= 0 && maxY >= 0 && minX < w && minY < h;
-                    if (!hasOpaque) {
-                      heroAlphaRef.current = null;
-                      return;
-                    }
-
-                    heroAlphaRef.current = {
-                      naturalW: w,
-                      naturalH: h,
-                      bbox: { minX, minY, maxX, maxY, w: maxX - minX + 1, h: maxY - minY + 1 },
-                    };
-                  } finally {
-                    applyHeroSubjectCentering();
-                  }
-                }}
-              />
+                    }}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Name overlay (desktop+): centered in the right half of the viewport */}
-        <div
-          ref={heroNameTextRef}
-          className="hidden md:block absolute top-[33%] left-[84%] lg:left-[86%] xl:left-[88%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none select-none whitespace-nowrap text-red-600 drop-shadow-[0_2px_14px_rgba(0,0,0,0.35)] font-caveat"
-          style={{ fontFamily: "'Caveat', cursive", fontSize: 'clamp(2.25rem, 3.6vw, 4rem)' }}
-        >
-          Vojaswwin A P
-        </div>
-
-        {/* Curved arrow pointing from text to hero image (desktop+) */}
-        <svg
-          ref={arrowSvgRef}
-          className="hidden md:block absolute inset-0 w-full h-full z-19 pointer-events-none"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          style={{ overflow: 'visible', visibility: 'hidden' }}
-        >
-          <defs>
-            <marker
-              id="arrowhead"
-              markerWidth="4"
-              markerHeight="4"
-              refX="3"
-              refY="1.5"
-              orient="auto"
-              markerUnits="userSpaceOnUse"
+            {/* Name overlay (desktop+): centered in the right half of the viewport */}
+            <div
+              ref={heroNameTextRef}
+              className="hidden md:block absolute top-[33%] left-[84%] lg:left-[86%] xl:left-[88%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none select-none whitespace-nowrap text-red-600 drop-shadow-[0_2px_14px_rgba(0,0,0,0.35)] font-caveat"
+              style={{ fontFamily: "'Caveat', cursive", fontSize: 'clamp(2.25rem, 3.6vw, 4rem)' }}
             >
+              Vojaswwin A P
+            </div>
+
+            {/* Curved arrow pointing from text to hero image (desktop+) */}
+            <svg
+              ref={arrowSvgRef}
+              className="hidden md:block absolute inset-0 w-full h-full z-19 pointer-events-none"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              style={{ overflow: 'visible', visibility: 'hidden' }}
+            >
+              <defs>
+                <marker
+                  id="arrowhead"
+                  markerWidth="4"
+                  markerHeight="4"
+                  refX="3"
+                  refY="1.5"
+                  orient="auto"
+                  markerUnits="userSpaceOnUse"
+                >
+                  <path
+                    ref={arrowheadPathRef}
+                    d="M 0 0 L 3 1.5 L 0 3"
+                    fill="none"
+                    stroke="#0891b2"
+                    strokeWidth="0.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </marker>
+              </defs>
+              {/* Straight arrow path: dynamically calculated from text to image */}
               <path
-                ref={arrowheadPathRef}
-                d="M 0 0 L 3 1.5 L 0 3"
-                fill="none"
+                ref={arrowPathRef}
+                d=""
                 stroke="#0891b2"
                 strokeWidth="0.4"
+                fill="none"
                 strokeLinecap="round"
-                strokeLinejoin="round"
+                markerEnd="url(#arrowhead)"
               />
-            </marker>
-          </defs>
-          {/* Straight arrow path: dynamically calculated from text to image */}
-          <path
-            ref={arrowPathRef}
-            d=""
-            stroke="#0891b2"
-            strokeWidth="0.4"
-            fill="none"
-            strokeLinecap="round"
-            markerEnd="url(#arrowhead)"
-          />
-        </svg>
-      </section>
+            </svg>
+          </section>
 
-      {/* Second Page - Proof of Work */}
-      <section
-        id="proof"
-        className="relative w-full md:w-screen min-h-screen flex flex-col items-center justify-start px-4 sm:px-8 md:px-16 lg:px-24 py-16 md:py-24 scroll-mt-28"
-        style={{ background: 'transparent' }}
-      >
-        <div ref={secondPageRef} className="w-full max-w-7xl opacity-0">
-          <h2
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
-            style={{ fontFamily: "'League Spartan', sans-serif" }}
+          {/* Second Page - Proof of Work */}
+          <section
+            id="proof"
+            className="relative w-full md:w-screen min-h-screen flex flex-col items-center justify-start px-4 sm:px-8 md:px-16 lg:px-24 py-16 md:py-24 scroll-mt-28"
+            style={{ background: 'transparent' }}
           >
-            Proof of Work
-          </h2>
+            <div ref={secondPageRef} className="w-full max-w-7xl opacity-0">
+              <h2
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
+                style={{ fontFamily: "'League Spartan', sans-serif" }}
+              >
+                Proof of Work
+              </h2>
 
-          {/* Back to vertical flow like before */}
-          <div className="space-y-16 md:space-y-20">
-            <ArtifactGallery title="Product Design" artifacts={productDesignArtifacts} />
-            <ArtifactGallery title="PRD" artifacts={prdArtifacts} />
-            <ArtifactGallery title="Product Teardowns" artifacts={productTeardownsArtifacts} />
-          </div>
+              {/* Back to vertical flow like before */}
+              <div className="space-y-16 md:space-y-20">
+                <ArtifactGallery title="Product Design" artifacts={productDesignArtifacts} />
+                <ArtifactGallery title="PRD" artifacts={prdArtifacts} />
+                <ArtifactGallery title="Product Teardowns" artifacts={productTeardownsArtifacts} />
+              </div>
 
-          <div className="mt-16 md:mt-20 text-center">
-            <button
-              onClick={handleResumeDownload}
-              className="text-xl md:text-2xl font-bold text-black hover:underline transition-all"
-              style={{ fontFamily: "'League Spartan', sans-serif" }}
-            >
-              Download Resume
-            </button>
-          </div>
-        </div>
-      </section>
+              <div className="mt-16 md:mt-20 text-center">
+                <button
+                  onClick={handleResumeDownload}
+                  className="text-xl md:text-2xl font-bold text-black hover:underline transition-all"
+                  style={{ fontFamily: "'League Spartan', sans-serif" }}
+                >
+                  Download Resume
+                </button>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
 
       {/* Third Page - Vibe Coders Playground */}
-      <section
-        aria-label="Product quote"
-        ref={productQuoteRef}
-        className="relative w-full z-10 px-4 sm:px-8 md:px-16 lg:px-24 py-10 md:py-14"
-        style={{ background: 'transparent' }}
-      >
-        <div className="w-full max-w-5xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white/55 backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
-            {/* subtle accent */}
-            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-black/15 to-transparent" />
+      {SHOW_VIBE_PLAYGROUND && (
+        <>
+          <section
+            aria-label="Product quote"
+            ref={productQuoteRef}
+            className="relative w-full z-10 px-4 sm:px-8 md:px-16 lg:px-24 py-10 md:py-14"
+            style={{ background: 'transparent' }}
+          >
+            <div className="w-full max-w-5xl mx-auto">
+              <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white/55 backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
+                {/* subtle accent */}
+                <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-black/15 to-transparent" />
 
-            <div className="mx-auto max-w-4xl text-center">
-              <div className="mb-6 flex items-center justify-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-black/20" />
-                <span className="h-[1px] w-20 bg-black/15" />
-                <span className="h-1.5 w-1.5 rounded-full bg-black/20" />
+                <div className="mx-auto max-w-4xl text-center">
+                  <div className="mb-6 flex items-center justify-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-black/20" />
+                    <span className="h-[1px] w-20 bg-black/15" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-black/20" />
+                  </div>
+
+                  <p
+                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-black leading-snug tracking-tight"
+                    style={{ fontFamily: "'League Spartan', sans-serif" }}
+                  >
+                    <span className="inline-block align-top text-black/25 mr-2">“</span>
+                    Great product work is clarity: a crisp problem, a simple solution, and feedback loops that never stop.
+                    <span className="inline-block align-top text-black/25 ml-2">”</span>
+                  </p>
+                </div>
               </div>
+            </div>
+          </section>
 
-              <p
-                className="text-2xl sm:text-3xl md:text-4xl font-bold text-black leading-snug tracking-tight"
+          <section id="playground" className="relative min-h-screen w-full flex flex-col items-center justify-start z-10 px-4 sm:px-8 md:px-16 lg:px-24 py-16 md:py-20 scroll-mt-28" style={{ background: 'transparent' }}>
+            <div
+              ref={thirdPageRef}
+              className="w-full max-w-7xl opacity-0"
+            >
+              <h2
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
                 style={{ fontFamily: "'League Spartan', sans-serif" }}
               >
-                <span className="inline-block align-top text-black/25 mr-2">“</span>
-                Great product work is clarity: a crisp problem, a simple solution, and feedback loops that never stop.
-                <span className="inline-block align-top text-black/25 ml-2">”</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+                Vibe Coders Playground
+              </h2>
 
-      <section id="playground" className="relative min-h-screen w-full flex flex-col items-center justify-start z-10 px-4 sm:px-8 md:px-16 lg:px-24 py-16 md:py-20 scroll-mt-28" style={{ background: 'transparent' }}>
-        <div 
-          ref={thirdPageRef}
-          className="w-full max-w-7xl opacity-0"
-        >
-          <h2
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
-            style={{ fontFamily: "'League Spartan', sans-serif" }}
-          >
-            Vibe Coders Playground
-          </h2>
-          
-          <ImageGallery images={vibeCodedImages} />
-        </div>
-      </section>
+              <ImageGallery images={vibeCodedImages} />
+            </div>
+          </section>
+        </>
+      )}
 
       {/* Fourth Page - About Me */}
       <section
@@ -953,7 +984,7 @@ function App() {
       </section>
 
       <section id="about" className="relative min-h-screen w-full flex flex-col items-center justify-start z-10 px-4 sm:px-8 md:px-16 lg:px-24 py-16 md:py-20 scroll-mt-28" style={{ background: 'transparent' }}>
-        <div 
+        <div
           ref={fourthPageRef}
           className="w-full max-w-4xl opacity-0"
         >
@@ -963,7 +994,7 @@ function App() {
           >
             About Me
           </h2>
-          
+
           <div className="space-y-6 md:space-y-8 text-lg md:text-xl lg:text-2xl text-black leading-relaxed">
             <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
               I am Vojaswwin A P. I like building products that feel simple on the outside and are thoughtfully engineered on the inside.
