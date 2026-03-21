@@ -1,5 +1,4 @@
 import { X } from 'lucide-react';
-import { createPortal } from 'react-dom';
 
 interface PDFViewerProps {
   pdfPath: string;
@@ -8,11 +7,8 @@ interface PDFViewerProps {
 }
 
 const PDFViewer = ({ pdfPath, title, onClose }: PDFViewerProps) => {
-  // Use a portal so the fixed overlay isn't affected by transformed ancestors (e.g. the horizontal scroll track).
-  if (typeof document === 'undefined') return null;
-
-  return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 backdrop-blur-sm">
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
       <div className="relative w-full h-full max-w-7xl max-h-[90vh] m-4 flex flex-col bg-white rounded-lg shadow-2xl">
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <h3 className="text-xl font-bold text-black" style={{ fontFamily: "'League Spartan', sans-serif" }}>
@@ -28,18 +24,14 @@ const PDFViewer = ({ pdfPath, title, onClose }: PDFViewerProps) => {
         </div>
         <div className="flex-1 overflow-hidden">
           <iframe
-            src={encodeURI(pdfPath)}
-            className="w-full h-full border-0"
+            src={pdfPath}
+            className="w-full h-full"
             title={title}
           />
         </div>
       </div>
     </div>
-    ,
-    document.body
   );
 };
 
 export default PDFViewer;
-
-

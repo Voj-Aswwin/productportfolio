@@ -3,11 +3,14 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CosmicBackground from './components/CosmicBackground';
 import ArtifactGallery from './components/ArtifactGallery';
-import ImageGallery from './components/ImageGallery';
+import ProductShowcase from './components/ProductShowcase';
+import type { ProductType } from './components/ProductModal';
 import { Menu, X } from 'lucide-react';
 import MorphingO from './components/MorphingO';
 import MorphingMoneySS from './components/MorphingMoneySS';
 
+
+// Custom icons using Lucide
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
@@ -162,8 +165,8 @@ function App() {
   useEffect(() => {
     const textEl = heroNameTextRef.current;
     const pathEl = arrowPathRef.current;
-    const section = heroRowRef.current?.closest('section');
     const svgEl = arrowSvgRef.current;
+    const section = heroRowRef.current?.closest('section');
 
     if (!textEl || !pathEl || !section) return;
 
@@ -248,7 +251,7 @@ function App() {
           opacity: 1,
           duration: 0.15,
           ease: 'power2.out'
-        }, i * 0.08); // Slower character reveal
+        }, i * 0.08 + 0.6); // Start text after image animation finishes
       });
 
       // Animate arrow path drawing (slower)
@@ -354,9 +357,18 @@ function App() {
     { name: 'Exalidraw.pdf', path: '/Artefacts/Product Teardowns/Exalidraw.pdf' },
   ];
 
-  const vibeCodedImages = [
-    '/Image1.png',
-    '/Image2.png'
+  const vibeCodedProducts: ProductType[] = [
+    {
+      id: 'linkedin-carousel',
+      name: 'LinkedIn Carousel Creator',
+      thumbnail: '/projects/linkedin-carousel-generator/CaroselCreatorThumbnail.png',
+      video: '/projects/linkedin-carousel-generator/CarouselCreator.mp4',
+      description: 'An AI-powered tool that generates engaging LinkedIn carousels from simple text prompts. It streamlines content creation for professionals building their personal brand.',
+      pmUseCase: 'Identified a friction point for creators taking too much time to design carousels. Built a minimal, automated creation flow that gets them from 0 to 1 instantly, reducing time-to-publish by 90%.',
+      techStack: ['React', 'Next.js', 'TailwindCSS', 'OpenAI API'],
+      githubUrl: 'https://github.com/Voj-Aswwin/Linkedin-Carousel-Generator',
+      liveUrl: 'https://linkedin-carousel-generator-umber.vercel.app/'
+    }
   ];
 
   const handleResumeDownload = () => {
@@ -368,7 +380,7 @@ function App() {
     document.body.removeChild(link);
   };
 
-  const SHOW_VIBE_PLAYGROUND = false;
+  const SHOW_VIBE_PLAYGROUND = true;
 
   const navItems = useMemo(
     () =>
@@ -625,7 +637,7 @@ function App() {
   }, [pageHeight, SHOW_VIBE_PLAYGROUND]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden" style={{ background: '#FFF7E6' }}>
+    <div className="relative min-h-screen w-full overflow-x-hidden" style={{ background: '#FFFFFF' }}>
       <CosmicBackground />
 
       {/* Hero Menu (kept outside the horizontally-transformed track so it stays centered on the first screen) */}
@@ -635,7 +647,7 @@ function App() {
       >
         <div
           ref={heroNavPillRef}
-          className="flex items-center justify-center gap-3 max-w-[92vw] rounded-full border border-black/10 bg-[#FFF7E6]/70 backdrop-blur px-4 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.08)] will-change-transform"
+          className="flex items-center justify-center gap-3 max-w-[92vw] rounded-full border border-black/10 bg-white/70 backdrop-blur px-4 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.08)] will-change-transform"
         >
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-1">
@@ -649,7 +661,7 @@ function App() {
                   className={[
                     'px-3 py-2 rounded-full text-sm font-bold transition-colors',
                     'focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30',
-                    isActive ? 'bg-black text-[#FFF7E6]' : 'text-black hover:bg-black/5',
+                    isActive ? 'bg-black text-white' : 'text-black hover:bg-black/5',
                   ].join(' ')}
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                   aria-current={isActive ? 'page' : undefined}
@@ -693,7 +705,7 @@ function App() {
         </div>
 
         {mobileNavOpen && (
-          <div className="mt-2 rounded-2xl border border-black/10 bg-[#FFF7E6]/90 backdrop-blur px-2 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.08)] md:hidden">
+          <div className="mt-2 rounded-2xl border border-black/10 bg-white/90 backdrop-blur px-2 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.08)] md:hidden">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -703,7 +715,7 @@ function App() {
                   onClick={() => scrollToSection(item.id)}
                   className={[
                     'w-full text-left px-4 py-3 rounded-xl text-base font-bold transition-colors',
-                    isActive ? 'bg-black text-[#FFF7E6]' : 'text-black hover:bg-black/5',
+                    isActive ? 'bg-black text-white' : 'text-black hover:bg-black/5',
                   ].join(' ')}
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                   aria-current={isActive ? 'page' : undefined}
@@ -946,7 +958,7 @@ function App() {
                 Vibe Coders Playground
               </h2>
 
-              <ImageGallery images={vibeCodedImages} />
+              <ProductShowcase products={vibeCodedProducts} />
             </div>
           </section>
         </>
@@ -995,24 +1007,27 @@ function App() {
             About Me
           </h2>
 
-          <div className="space-y-6 md:space-y-8 text-lg md:text-xl lg:text-2xl text-black leading-relaxed">
-            <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
-              I am Vojaswwin A P. I like building products that feel simple on the outside and are thoughtfully engineered on the inside.
-              I’m doing a PGP in Technology &amp; Business Management at Masters’ Union, and I bring 4 years of experience from Thoughtworks.
-            </p>
-            <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
-              I’ve led release cycles (about every 6 sprints), partnered with PMs and engineers, and kept quality high through crisp testing strategy.
-              I also love talking to users and stress-testing flows, including validating 100+ journeys that helped lift checkout conversion.
-            </p>
-            <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
-              I’m happiest when I can ship and improve the engine room, too. I’ve built automation that cut manual effort by ~30%,
-              improved reliability in production, and reduced cloud costs by ~75% by smarter test runs.
-            </p>
-            <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
-              When I’m not working, I’m doing product teardowns, vibe-coding tiny experiments, or building scrappy projects (like a Shopify store with 250+ SKUs).
-              I’m big on curiosity, clean craft, and shipping with empathy.
-            </p>
+          <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white/70 backdrop-blur-md px-6 py-10 shadow-[0_18px_50px_rgba(0,0,0,0.04)]">
+            <div className="space-y-6 md:space-y-8 text-lg md:text-xl lg:text-2xl text-black leading-relaxed">
+              <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
+                I am Vojaswwin A P. I like building products that feel simple on the outside and are thoughtfully engineered on the inside.
+                I’m doing a PGP in Technology &amp; Business Management at Masters’ Union, and I bring 4 years of experience from Thoughtworks.
+              </p>
+              <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
+                I’ve led release cycles (about every 6 sprints), partnered with PMs and engineers, and kept quality high through crisp testing strategy.
+                I also love talking to users and stress-testing flows, including validating 100+ journeys that helped lift checkout conversion.
+              </p>
+              <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
+                I’m happiest when I can ship and improve the engine room, too. I’ve built automation that cut manual effort by ~30%,
+                improved reliability in production, and reduced cloud costs by ~75% by smarter test runs.
+              </p>
+              <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
+                When I’m not working, I’m doing product teardowns, vibe-coding tiny experiments, or building scrappy projects (like a Shopify store with 250+ SKUs).
+                I’m big on curiosity, clean craft, and shipping with empathy.
+              </p>
+            </div>
           </div>
+
         </div>
       </section>
     </div>

@@ -13,7 +13,7 @@ type MorphingMoneySSProps = {
 };
 
 export default function MorphingMoneySS({
-  moneyColor = '#16a34a',
+  moneyColor = '#00E054',
   delay = 0.45,
   finalScale = 0.88,
   dollarLetterSpacingEm = -0.12,
