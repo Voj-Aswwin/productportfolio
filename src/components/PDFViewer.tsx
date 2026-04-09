@@ -1,4 +1,6 @@
 import { X } from 'lucide-react';
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 interface PDFViewerProps {
   pdfPath: string;
@@ -7,8 +9,16 @@ interface PDFViewerProps {
 }
 
 const PDFViewer = ({ pdfPath, title, onClose }: PDFViewerProps) => {
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+  useEffect(() => {
+    // Lock body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  const modalContent = (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
       <div className="relative w-full h-full max-w-7xl max-h-[90vh] m-4 flex flex-col bg-white rounded-lg shadow-2xl">
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <h3 className="text-xl font-bold text-black" style={{ fontFamily: "'League Spartan', sans-serif" }}>
@@ -32,6 +42,10 @@ const PDFViewer = ({ pdfPath, title, onClose }: PDFViewerProps) => {
       </div>
     </div>
   );
+
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(modalContent, document.body);
 };
 
 export default PDFViewer;

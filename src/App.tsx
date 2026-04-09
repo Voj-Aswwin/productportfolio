@@ -352,6 +352,7 @@ function App() {
   ];
 
   const productTeardownsArtifacts = [
+    { name: 'Ask Maps India.pdf', path: '/Artefacts/Product Teardowns/Ask_Maps_India.pdf' },
     { name: 'Inshots.pdf', path: '/Artefacts/Product Teardowns/Inshots.pdf' },
     { name: 'The Souled Store App.pdf', path: '/Artefacts/Product Teardowns/The Souled Store App.pdf' },
     { name: 'Exalidraw.pdf', path: '/Artefacts/Product Teardowns/Exalidraw.pdf' },
