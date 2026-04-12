@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, type RefObject } from 'react';
 import { gsap } from 'gsap';
 
 type MorphingMoneySSProps = {
@@ -10,6 +10,11 @@ type MorphingMoneySSProps = {
   finalScale?: number;
   /** Negative values tighten the gap between the two "$" characters (in em). */
   dollarLetterSpacingEm?: number;
+  /**
+   * When set, the "$$" baseline is aligned to this element’s text (e.g. the “e” in “Busine”)
+   * instead of the hidden “ss” placeholder — fixes optical mismatch after the morph.
+   */
+  alignBaselineTargetRef?: RefObject<HTMLElement | null>;
 };
 
 /** Approximate viewport Y of the alphabetic baseline for text in `el` (handles scaled boxes). */
@@ -47,6 +52,7 @@ export default function MorphingMoneySS({
   delay = 0.45,
   finalScale = 0.88,
   dollarLetterSpacingEm = -0.12,
+  alignBaselineTargetRef,
 }: MorphingMoneySSProps) {
   const rootRef = useRef<HTMLSpanElement>(null);
   const lettersRef = useRef<HTMLSpanElement>(null);
@@ -62,7 +68,7 @@ export default function MorphingMoneySS({
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /** Vertically nudge "$$" so its baseline matches the hidden "ss" (same as "Busine"). */
+    /** Vertically nudge "$$" so its baseline matches the preceding letter (e.g. “e”) or the hidden "ss". */
     const alignMoneyBaseline = () => {
       const L = lettersRef.current;
       const D = dollarsRef.current;
@@ -96,9 +102,18 @@ export default function MorphingMoneySS({
 
       void L.offsetHeight;
 
-      const yL = estimateViewportBaselineY(L, 'ss');
-      const yD = estimateViewportBaselineY(D, '$$');
-      const delta = yL - yD;
+      const targetEl = alignBaselineTargetRef?.current;
+      const targetSample =
+        targetEl && (targetEl.textContent?.trim().length ?? 0) > 0
+          ? (targetEl.textContent!.trim().slice(-1) || 'e')
+          : 'ss';
+      const yRef = targetEl ? estimateViewportBaselineY(targetEl, targetSample) : estimateViewportBaselineY(L, 'ss');
+      // Single "$" metrics track the curved stem better than "$$" (double width inflates descent).
+      const yD = estimateViewportBaselineY(D, '$');
+      const fs = parseFloat(getComputedStyle(D).fontSize) || 16;
+      // When locking to the preceding "e", canvas math reads slightly low — tiny upward nudge (GSAP y− = up).
+      const opticalUpPx = targetEl ? fs * 0.018 : 0;
+      const delta = yRef - yD - opticalUpPx;
 
       gsap.set(L, letterSnap);
       gsap.set(D, { ...dollarSnap, y: delta });
@@ -193,10 +208,22 @@ export default function MorphingMoneySS({
           scaleX: finalScale,
           scaleY: finalScale,
           ease: 'power2.out',
-          onComplete: () => alignMoneyBaseline(),
+          onComplete: () => {
+            requestAnimationFrame(() => {
+              alignMoneyBaseline();
+              requestAnimationFrame(alignMoneyBaseline);
+            });
+          },
         },
         '>-0.02'
       );
+
+    tl.eventCallback('onComplete', () => {
+      requestAnimationFrame(() => {
+        alignMoneyBaseline();
+        requestAnimationFrame(alignMoneyBaseline);
+      });
+    });
 
     void document.fonts?.ready?.then(() => alignMoneyBaseline());
 

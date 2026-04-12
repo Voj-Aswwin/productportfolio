@@ -102,7 +102,7 @@ const PDFThumbnail = ({ pdfPath, className = '' }: PDFThumbnailProps) => {
 
   if (error) {
     return (
-      <div className={`flex items-center justify-center bg-gray-100 ${className}`}>
+      <div className={`flex items-center justify-center bg-zinc-800 ${className}`}>
         <div className="text-6xl">📄</div>
       </div>
     );
@@ -111,7 +111,7 @@ const PDFThumbnail = ({ pdfPath, className = '' }: PDFThumbnailProps) => {
   return (
     <div className={`relative ${className}`}>
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+        <div className="absolute inset-0 flex items-center justify-center bg-zinc-800">
           <div className="animate-pulse text-4xl">📄</div>
         </div>
       )}

@@ -5,7 +5,7 @@ import CosmicBackground from './components/CosmicBackground';
 import ArtifactGallery from './components/ArtifactGallery';
 import ProductShowcase from './components/ProductShowcase';
 import type { ProductType } from './components/ProductModal';
-import { Menu, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import MorphingO from './components/MorphingO';
 import MorphingMoneySS from './components/MorphingMoneySS';
 
@@ -28,6 +28,17 @@ function App() {
     []
   );
 
+  /** From résumé PDF hyperlinks (Artefacts/Resume/Vojaswwin_PM_Resume.pdf) */
+  const heroContactLinks = useMemo(
+    () =>
+      [
+        { label: 'LinkedIn', href: 'https://in.linkedin.com/in/vojaswwin', Icon: Linkedin },
+        { label: 'GitHub', href: 'https://github.com/Voj-Aswwin', Icon: Github },
+        { label: 'Email', href: 'mailto:tbm26vojaswwin@mastersunion.org', Icon: Mail },
+      ] as const,
+    []
+  );
+
   const horizontalWrapRef = useRef<HTMLDivElement>(null);
   const horizontalTrackRef = useRef<HTMLDivElement>(null);
   const productQuoteRef = useRef<HTMLElement>(null);
@@ -40,6 +51,8 @@ function App() {
   const heroNavPillRef = useRef<HTMLDivElement>(null);
   const heroImgRef = useRef<HTMLImageElement>(null);
   const heroAmpRef = useRef<HTMLSpanElement>(null);
+  /** Last letter before “$$” in “Business” — baseline target for MorphingMoneySS */
+  const heroBusineERef = useRef<HTMLSpanElement>(null);
   const heroNameTextRef = useRef<HTMLDivElement>(null);
   const arrowPathRef = useRef<SVGPathElement>(null);
   const arrowSvgRef = useRef<SVGSVGElement>(null);
@@ -338,24 +351,100 @@ function App() {
     };
   }, [updateArrowPath]);
 
-  // Artifact data
+  // Artifact data — paths mirror `/Artefacts/` (served in dev, copied on build). Headings are editorial; descriptions clamp to two lines in the gallery.
+  const caseCompetitionArtifacts = [
+    {
+      name: 'Bliss — Adaptive AI scheduling (case).pdf',
+      path: '/Artefacts/Case Competitions/Bliss_Partner_Product.pdf',
+      category: 'Case competition',
+      heading: 'When the gig economy finally learns to play fair',
+      description:
+        'Bliss partner case: an AI system that rewards reliability, trims cancellations, and opens fairer opportunities for gig workers. Problem framing, solution mechanics, and rollout narrative for the modern workforce.',
+    },
+    {
+      name: 'Streama — Digital wellbeing (case).pdf',
+      path: '/Artefacts/Case Competitions/Streama - Digital Well Being.pdf',
+      category: 'Case competition',
+      heading: 'Your binge knows midnight better than you do',
+      description:
+        'Streama deck on shifting streaming from raw watch time to digital wellbeing: late-night sessions, post-binge guilt, personas, and product moves that respect attention instead of only chasing engagement.',
+    },
+    {
+      name: 'Upwise.AI — Prod Blitz 3.0 (case).pdf',
+      path: '/Artefacts/Case Competitions/Upwise.AI.pdf',
+      category: 'Case competition',
+      heading: 'Forty-eight hours, one blank deck, one room to win',
+      description:
+        'Prod Blitz 3.0 presentation for Upwise.AI—team story, positioning, and a tight pitch built under competition pressure. Discovery, narrative, and how the idea lands when minutes on stage matter.',
+    },
+  ];
+
   const productDesignArtifacts = [
-    { name: 'PetInsurance - Product Design.pdf', path: '/Artefacts/Product Design/PetInsurance - Product Design.pdf' },
-    { name: 'Bliss_Partner_Product.pdf', path: '/Artefacts/Product Design/Bliss_Partner_Product.pdf' },
-    { name: 'Upwise.ai.pdf', path: '/Artefacts/Product Design/prodblitz.pdf' },
-    { name: 'Rapido.pdf', path: '/Artefacts/Product Design/Rapido.pdf' },
-    { name: 'Streama - Digital Well Being.pdf', path: '/Artefacts/Product Design/Streama - Digital Well Being.pdf' },
+    {
+      name: 'PetInsurance — Product design.pdf',
+      path: '/Artefacts/Product Design/PetInsurance - Product Design.pdf',
+      category: 'Product design',
+      heading: 'India loves its pets to the vet—and almost never insures them',
+      description:
+        'End-to-end product design exploration for pet insurance: market growth, why coverage lags, and UX directions that make policies feel obvious. Research signals, problem statement, and concepts pet parents would trust.',
+    },
   ];
 
   const prdArtifacts = [
-    { name: 'BMS PRD.pdf', path: '/Artefacts/PRD/BMS PRD.pdf' }
+    {
+      name: 'BMS — Live events solo attendance PRD.pdf',
+      path: '/Artefacts/PRD/BMS PRD.pdf',
+      category: 'PRD',
+      heading: 'Solo at a gig should feel like an invitation, not a dare',
+      description:
+        'PRD encouraging solo attendance at live events: the hesitation loop, social proof, and features that help strangers become a crowd you chose. Scope, MVP slice, release target, and owner roles spelled out.',
+    },
   ];
 
   const productTeardownsArtifacts = [
-    { name: 'Ask Maps India.pdf', path: '/Artefacts/Product Teardowns/Ask_Maps_India.pdf' },
-    { name: 'Inshots.pdf', path: '/Artefacts/Product Teardowns/Inshots.pdf' },
-    { name: 'The Souled Store App.pdf', path: '/Artefacts/Product Teardowns/The Souled Store App.pdf' },
-    { name: 'Exalidraw.pdf', path: '/Artefacts/Product Teardowns/Exalidraw.pdf' },
+    {
+      name: 'Ask Maps India — teardown.pdf',
+      path: '/Artefacts/Product Teardowns/Ask_Maps_India.pdf',
+      category: 'Product teardown',
+      heading: 'Google Maps learned to chat—and India is the lab bench',
+      description:
+        'Teardown of Ask Maps in India: Gemini-style conversational answers inside Maps, refinement flows, and how monetisation shows up beside “helpful” replies. Contrasts classic search with the new conversational surface.',
+    },
+    {
+      name: 'InShot — teardown.pdf',
+      path: '/Artefacts/Product Teardowns/Inshots.pdf',
+      category: 'Product teardown',
+      heading: 'The quiet ritual hiding inside a billion casual edits',
+      description:
+        'Feature-level teardown of InShot for daily creators: habit loops, the “daily ritual” angle, and what keeps trimming and posting frictionless. PM view on retention hooks versus switching costs.',
+    },
+    {
+      name: 'The Souled Store — teardown.pdf',
+      path: '/Artefacts/Product Teardowns/The Souled Store App.pdf',
+      category: 'Product teardown',
+      heading: 'Merch, music, and the impulse buy dressed as identity',
+      description:
+        'App teardown for The Souled Store: fandom catalogue psychology, loyalty touches, and checkout tuned for cult commerce. Where the experience sings—and where the funnel still leaves money on the table.',
+    },
+    {
+      name: 'Excalidraw — teardown.pdf',
+      path: '/Artefacts/Product Teardowns/Exalidraw.pdf',
+      category: 'Product teardown',
+      heading: 'Infinite canvas, zero patience—speed as the real feature',
+      description:
+        'Excalidraw teardown on why “fast and light” beats feature sprawl for whiteboards: collaboration, exports, and positioning against heavier diagramming suites. Notes on who wins when latency is the UX.',
+    },
+  ];
+
+  const aiEvalArtifacts = [
+    {
+      name: 'Sarvam / Indus — AI evaluation.pdf',
+      path: '/Artefacts/AI Evals/Sarvam_Indus.pdf',
+      category: 'AI evaluation',
+      heading: 'Grading models the way users actually feel the answer',
+      description:
+        'Structured evaluation work on Sarvam / Indus outputs: rubrics for usefulness, tone, and local context when models answer messy real-world prompts. Method, sample runs, and what “good” looked like on review.',
+    },
   ];
 
   const vibeCodedProducts: ProductType[] = [
@@ -374,8 +463,8 @@ function App() {
 
   const handleResumeDownload = () => {
     const link = document.createElement('a');
-    link.href = '/resume.pdf';
-    link.download = 'Vojaswwin_Product_Resume.pdf';
+    link.href = '/Artefacts/Resume/Vojaswwin_PM_Resume.pdf';
+    link.download = 'Vojaswwin_PM_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -638,7 +727,7 @@ function App() {
   }, [pageHeight, SHOW_VIBE_PLAYGROUND]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden" style={{ background: '#FFFFFF' }}>
+    <div className="relative min-h-screen min-h-dvh w-full overflow-x-hidden bg-black text-white">
       <CosmicBackground />
 
       {/* Hero Menu (kept outside the horizontally-transformed track so it stays centered on the first screen) */}
@@ -648,7 +737,7 @@ function App() {
       >
         <div
           ref={heroNavPillRef}
-          className="flex items-center justify-center gap-3 max-w-[92vw] rounded-full border border-black/10 bg-white/70 backdrop-blur px-4 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.08)] will-change-transform"
+          className="flex items-center justify-center gap-3 max-w-[92vw] rounded-full border border-white/15 bg-black/55 backdrop-blur px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] will-change-transform"
         >
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-1">
@@ -661,8 +750,8 @@ function App() {
                   onClick={() => scrollToSection(item.id)}
                   className={[
                     'px-3 py-2 rounded-full text-sm font-bold transition-colors',
-                    'focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30',
-                    isActive ? 'bg-black text-white' : 'text-black hover:bg-black/5',
+                    'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
+                    isActive ? 'bg-white text-black' : 'text-white hover:bg-white/10',
                   ].join(' ')}
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                   aria-current={isActive ? 'page' : undefined}
@@ -675,7 +764,7 @@ function App() {
             <button
               type="button"
               onClick={handleResumeDownload}
-              className="ml-1 px-3 py-2 rounded-full text-sm font-bold bg-red-600 text-white hover:bg-red-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+              className="ml-1 px-3 py-2 rounded-full text-sm font-bold bg-red-600 text-white hover:bg-red-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
               style={{ fontFamily: "'League Spartan', sans-serif" }}
             >
               Resume
@@ -687,7 +776,7 @@ function App() {
             <button
               type="button"
               onClick={handleResumeDownload}
-              className="px-3 py-2 rounded-full text-sm font-bold bg-red-600 text-white hover:bg-red-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+              className="px-3 py-2 rounded-full text-sm font-bold bg-red-600 text-white hover:bg-red-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
               style={{ fontFamily: "'League Spartan', sans-serif" }}
             >
               Resume
@@ -696,7 +785,7 @@ function App() {
             <button
               type="button"
               onClick={() => setMobileNavOpen((v) => !v)}
-              className="p-2 rounded-full text-black hover:bg-black/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+              className="p-2 rounded-full text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
               aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileNavOpen}
             >
@@ -706,7 +795,7 @@ function App() {
         </div>
 
         {mobileNavOpen && (
-          <div className="mt-2 rounded-2xl border border-black/10 bg-white/90 backdrop-blur px-2 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.08)] md:hidden">
+          <div className="mt-2 rounded-2xl border border-white/15 bg-black/85 backdrop-blur px-2 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] md:hidden">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -716,7 +805,7 @@ function App() {
                   onClick={() => scrollToSection(item.id)}
                   className={[
                     'w-full text-left px-4 py-3 rounded-xl text-base font-bold transition-colors',
-                    isActive ? 'bg-black text-white' : 'text-black hover:bg-black/5',
+                    isActive ? 'bg-white text-black' : 'text-white hover:bg-white/10',
                   ].join(' ')}
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                   aria-current={isActive ? 'page' : undefined}
@@ -738,7 +827,7 @@ function App() {
               {/* Left Side - Text */}
               <div className="w-full md:flex-1 md:h-full flex flex-col justify-center md:justify-center items-start md:translate-x-4 lg:translate-x-6">
                 <h1
-                  className="font-league font-black tracking-tight leading-[0.9] text-black select-none text-left w-full flex flex-col gap-[clamp(0.25rem,1.2vmin,1.1rem)]"
+                  className="font-league font-black tracking-tight leading-[0.9] text-white select-none text-left w-full flex flex-col gap-[clamp(0.25rem,1.2vmin,1.1rem)]"
                   style={{ fontSize: 'clamp(3.25rem, 22vmin, 80vmin)' }}
                 >
                   <span className="block">
@@ -749,7 +838,17 @@ function App() {
                   </span>
                   <span className="block">
                     <span className="inline-flex items-baseline whitespace-nowrap">
-                      Busine<span className="inline-block -ml-[0.06em]"><MorphingMoneySS moneyColor="#16a34a" delay={HERO_SEQ.moneyDelay} /></span>
+                      Busin
+                      <span ref={heroBusineERef} className="inline-block">
+                        e
+                      </span>
+                      <span className="inline-block -ml-[0.06em]">
+                        <MorphingMoneySS
+                          moneyColor="#16a34a"
+                          delay={HERO_SEQ.moneyDelay}
+                          alignBaselineTargetRef={heroBusineERef}
+                        />
+                      </span>
                     </span>
                   </span>
                   <span className="block">
@@ -757,9 +856,28 @@ function App() {
                       &amp;
                     </span>
                     {' '}
-                    <span className="inline-block -ml-[0.06em] text-black">Tech.</span>
+                    <span className="inline-block -ml-[0.06em] text-white">Tech.</span>
                   </span>
                 </h1>
+
+                <div
+                  className="mt-6 md:mt-8 flex flex-wrap gap-2 md:gap-3"
+                  aria-label="Contact links"
+                >
+                  {heroContactLinks.map(({ label, href, Icon }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target={href.startsWith('mailto:') ? undefined : '_blank'}
+                      rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:border-white/25 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                      style={{ fontFamily: "'League Spartan', sans-serif" }}
+                    >
+                      <Icon className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
+                      {label}
+                    </a>
+                  ))}
+                </div>
               </div>
 
               {/* Right Side - Image */}
@@ -830,7 +948,7 @@ function App() {
             {/* Name overlay (desktop+): centered in the right half of the viewport */}
             <div
               ref={heroNameTextRef}
-              className="hidden md:block absolute top-[33%] left-[84%] lg:left-[86%] xl:left-[88%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none select-none whitespace-nowrap text-red-600 drop-shadow-[0_2px_14px_rgba(0,0,0,0.35)] font-caveat"
+              className="hidden md:block absolute top-[33%] left-[84%] lg:left-[86%] xl:left-[88%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none select-none whitespace-nowrap text-red-500 drop-shadow-[0_2px_18px_rgba(0,0,0,0.9)] font-caveat"
               style={{ fontFamily: "'Caveat', cursive", fontSize: 'clamp(2.25rem, 3.6vw, 4rem)' }}
             >
               Vojaswwin A P
@@ -886,7 +1004,7 @@ function App() {
           >
             <div ref={secondPageRef} className="w-full max-w-7xl opacity-0">
               <h2
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-12 md:mb-16 text-center"
                 style={{ fontFamily: "'League Spartan', sans-serif" }}
               >
                 Proof of Work
@@ -894,15 +1012,17 @@ function App() {
 
               {/* Back to vertical flow like before */}
               <div className="space-y-16 md:space-y-20">
-                <ArtifactGallery title="Product Design" artifacts={productDesignArtifacts} />
+                <ArtifactGallery title="Product teardowns" artifacts={productTeardownsArtifacts} />
+                <ArtifactGallery title="AI evaluations" artifacts={aiEvalArtifacts} />
+                <ArtifactGallery title="Product design" artifacts={productDesignArtifacts} />
                 <ArtifactGallery title="PRD" artifacts={prdArtifacts} />
-                <ArtifactGallery title="Product Teardowns" artifacts={productTeardownsArtifacts} />
+                <ArtifactGallery title="Case competitions" artifacts={caseCompetitionArtifacts} />
               </div>
 
               <div className="mt-16 md:mt-20 text-center">
                 <button
                   onClick={handleResumeDownload}
-                  className="text-xl md:text-2xl font-bold text-black hover:underline transition-all"
+                  className="text-xl md:text-2xl font-bold text-white hover:text-neutral-300 hover:underline transition-all"
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                 >
                   Download Resume
@@ -923,24 +1043,24 @@ function App() {
             style={{ background: 'transparent' }}
           >
             <div className="w-full max-w-5xl mx-auto">
-              <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white/55 backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
+              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
                 {/* subtle accent */}
-                <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-black/15 to-transparent" />
+                <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
                 <div className="mx-auto max-w-4xl text-center">
                   <div className="mb-6 flex items-center justify-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-black/20" />
-                    <span className="h-[1px] w-20 bg-black/15" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-black/20" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+                    <span className="h-[1px] w-20 bg-white/20" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
                   </div>
 
                   <p
-                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-black leading-snug tracking-tight"
+                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug tracking-tight"
                     style={{ fontFamily: "'League Spartan', sans-serif" }}
                   >
-                    <span className="inline-block align-top text-black/25 mr-2">“</span>
+                    <span className="inline-block align-top text-white/35 mr-2">“</span>
                     Great product work is clarity: a crisp problem, a simple solution, and feedback loops that never stop.
-                    <span className="inline-block align-top text-black/25 ml-2">”</span>
+                    <span className="inline-block align-top text-white/35 ml-2">”</span>
                   </p>
                 </div>
               </div>
@@ -953,7 +1073,7 @@ function App() {
               className="w-full max-w-7xl opacity-0"
             >
               <h2
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-12 md:mb-16 text-center"
                 style={{ fontFamily: "'League Spartan', sans-serif" }}
               >
                 Vibe Coders Playground
@@ -973,23 +1093,23 @@ function App() {
         style={{ background: 'transparent' }}
       >
         <div className="w-full max-w-5xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white/55 backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
-            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-black/15 to-transparent" />
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
+            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
             <div className="mx-auto max-w-4xl text-center">
               <div className="mb-6 flex items-center justify-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-black/20" />
-                <span className="h-[1px] w-20 bg-black/15" />
-                <span className="h-1.5 w-1.5 rounded-full bg-black/20" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+                <span className="h-[1px] w-20 bg-white/20" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
               </div>
 
               <p
-                className="text-2xl sm:text-3xl md:text-4xl font-bold text-black leading-snug tracking-tight"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug tracking-tight"
                 style={{ fontFamily: "'League Spartan', sans-serif" }}
               >
-                <span className="inline-block align-top text-black/25 mr-2">“</span>
+                <span className="inline-block align-top text-white/35 mr-2">“</span>
                 Stay curious, do the hard thinking, and ship with empathy.
-                <span className="inline-block align-top text-black/25 ml-2">”</span>
+                <span className="inline-block align-top text-white/35 ml-2">”</span>
               </p>
             </div>
           </div>
@@ -1002,14 +1122,14 @@ function App() {
           className="w-full max-w-4xl opacity-0"
         >
           <h2
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-12 md:mb-16 text-center"
             style={{ fontFamily: "'League Spartan', sans-serif" }}
           >
             About Me
           </h2>
 
-          <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white/70 backdrop-blur-md px-6 py-10 shadow-[0_18px_50px_rgba(0,0,0,0.04)]">
-            <div className="space-y-6 md:space-y-8 text-lg md:text-xl lg:text-2xl text-black leading-relaxed">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur-md px-6 py-10 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
+            <div className="space-y-6 md:space-y-8 text-lg md:text-xl lg:text-2xl text-neutral-200 leading-relaxed">
               <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
                 I am Vojaswwin A P. I like building products that feel simple on the outside and are thoughtfully engineered on the inside.
                 I’m doing a PGP in Technology &amp; Business Management at Masters’ Union, and I bring 4 years of experience from Thoughtworks.

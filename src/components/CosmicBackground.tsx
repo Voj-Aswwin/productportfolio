@@ -78,8 +78,8 @@ const CosmicBackground = () => {
     let animationFrame: number;
 
     const animate = () => {
-      // Pure white background
-      ctx.fillStyle = '#FFFFFF';
+      // Dark base so constellation reads as inverted from the prior light theme
+      ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, width, height);
 
       for (let i = 0; i < particles.length; i++) {
@@ -113,7 +113,7 @@ const CosmicBackground = () => {
           const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
 
           if (dist2 < 120) {
-            const alpha = 0.15 - (dist2 / 120) * 0.15;
+            const alpha = 0.22 - (dist2 / 120) * 0.22;
             
             // Draw gradient line between particles using their colors
             const gradient = ctx.createLinearGradient(p.x, p.y, p2.x, p2.y);
@@ -181,7 +181,7 @@ const CosmicBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none z-0"
+      className="pointer-events-none fixed inset-0 z-0 h-full min-h-dvh w-full min-w-full bg-black"
     />
   );
 };

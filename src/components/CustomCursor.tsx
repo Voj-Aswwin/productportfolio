@@ -86,7 +86,7 @@ const CustomCursor = () => {
     <>
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-2 h-2 bg-black rounded-full pointer-events-none z-[99999] mix-blend-difference"
+        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[99999] mix-blend-difference"
       />
       <div 
         ref={followerRef} 

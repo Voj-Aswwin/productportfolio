@@ -17,9 +17,9 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             <div
               key={index}
               onClick={() => setSelectedImage(imagePath)}
-              className="group cursor-pointer bg-white border-2 border-black rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="group cursor-pointer bg-zinc-900 border-2 border-white/15 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105"
             >
-              <div className="w-full h-64 md:h-80 overflow-hidden bg-gray-100 flex items-center justify-center">
+              <div className="w-full h-64 md:h-80 overflow-hidden bg-zinc-800 flex items-center justify-center">
                 <img
                   src={imagePath}
                   alt={`Gallery image ${index + 1}`}
