@@ -17,7 +17,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
             <div
               key={index}
               onClick={() => setSelectedImage(imagePath)}
-              className="group cursor-pointer bg-zinc-900 border-2 border-white/15 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105"
+              className="group cursor-pointer bg-zinc-900 border-2 border-black/15 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105"
             >
               <div className="w-full h-64 md:h-80 overflow-hidden bg-zinc-800 flex items-center justify-center">
                 <img
@@ -49,7 +49,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
                 className="absolute -top-12 right-0 p-2 hover:bg-white hover:bg-opacity-20 rounded-full transition-colors z-10"
                 aria-label="Close image viewer"
               >
-                <X className="w-6 h-6 text-white" />
+                <X className="w-6 h-6 text-black" />
               </button>
               <img
                 src={selectedImage}

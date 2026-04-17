@@ -32,7 +32,7 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
       <div className={compact ? 'mb-6 md:mb-6' : 'mb-12'}>
         <h3 
           className={[
-            'font-bold text-white',
+            'font-bold text-black',
             compact ? 'text-xl sm:text-2xl md:text-3xl mb-4' : 'text-2xl sm:text-3xl md:text-4xl mb-6',
           ].join(' ')}
           style={{ fontFamily: "'League Spartan', sans-serif" }}
@@ -51,7 +51,7 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
               key={`${artifact.path}-${index}`}
               onClick={() => setSelectedPdf({ path: artifact.path, name: artifact.name })}
               className={[
-                'group cursor-pointer bg-zinc-900 border border-white/10 rounded-lg overflow-hidden shadow-md shadow-black/40 hover:shadow-lg hover:border-white/15 transition-shadow duration-300',
+                'group cursor-pointer bg-zinc-900 border border-black/10 rounded-lg overflow-hidden shadow-md shadow-black/40 hover:shadow-lg hover:border-black/15 transition-shadow duration-300',
                 compact ? 'hover:scale-[1.03]' : 'hover:shadow-lg',
               ].join(' ')}
             >
@@ -76,13 +76,13 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
                     {artifact.category}
                   </p>
                   <h4
-                    className={`text-white font-bold leading-snug mb-2 ${compact ? 'text-base' : 'text-lg md:text-xl'}`}
+                    className={`text-black font-bold leading-snug mb-2 ${compact ? 'text-base' : 'text-lg md:text-xl'}`}
                     style={{ fontFamily: serif }}
                   >
                     {artifact.heading}
                   </h4>
                   <p
-                    className={`text-neutral-300 leading-relaxed line-clamp-2 ${compact ? 'text-sm' : 'text-[0.95rem] md:text-base'}`}
+                    className={`text-neutral-700 leading-relaxed line-clamp-2 ${compact ? 'text-sm' : 'text-[0.95rem] md:text-base'}`}
                     style={{ fontFamily: serif }}
                   >
                     {artifact.description}
