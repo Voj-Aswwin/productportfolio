@@ -61,12 +61,12 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
   const modalContent = (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 sm:p-6 md:p-8 opacity-0"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/60 backdrop-blur-sm p-4 sm:p-6 md:p-8 opacity-0"
       onClick={handleClose}
     >
       <div
         ref={modalRef}
-        className="relative flex flex-col md:flex-row w-full max-w-6xl max-h-[92vh] bg-zinc-950 rounded-3xl overflow-hidden opacity-0 border border-black/10 shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
+        className="relative flex flex-col md:flex-row w-full max-w-6xl max-h-[92vh] bg-zinc-50 rounded-3xl overflow-hidden opacity-0 border border-black/10 shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
@@ -79,7 +79,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
         </button>
 
         {/* Left Side: Video — warm neutral bg that blends with the portfolio palette */}
-        <div className="w-full md:w-1/2 h-56 sm:h-64 md:h-auto bg-zinc-900 flex flex-col justify-center relative overflow-hidden md:rounded-l-3xl">
+        <div className="w-full md:w-1/2 h-56 sm:h-64 md:h-auto bg-zinc-100 flex flex-col justify-center relative overflow-hidden md:rounded-l-3xl">
           <video
             autoPlay
             loop
@@ -137,7 +137,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
               href={product.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 bg-white text-black px-5 py-3 rounded-xl font-bold text-base hover:bg-neutral-200 transition-all hover:-translate-y-0.5"
+              className="flex-1 flex items-center justify-center gap-2 bg-black text-white px-5 py-3 rounded-xl font-bold text-base hover:bg-neutral-200 transition-all hover:-translate-y-0.5"
             >
               <ExternalLink size={18} />
               Try Product

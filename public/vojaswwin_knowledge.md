@@ -132,8 +132,7 @@ I built enterprise products for global consulting firms and retail clients. Here
 
 ### Case Competitions
 
-1. **Bliss — Adaptive AI Scheduling** — When the gig economy finally learns to play fair
-   - Bliss partner case: an AI system that rewards reliability, trims cancellations, and opens fairer opportunities for gig workers. Problem framing, solution mechanics, and rollout narrative for the modern workforce.
+ case: an AI system that rewards reliability, trims cancellations, and opens fairer opportunities for gig workers. Problem framing, solution mechanics, and rollout narrative for the modern workforce.
 
 2. **Streama — Digital Wellbeing** — Your binge knows midnight better than you do
    - Streama deck on shifting streaming from raw watch time to digital wellbeing: late-night sessions, post-binge guilt, personas, and product moves that respect attention instead of only chasing engagement.

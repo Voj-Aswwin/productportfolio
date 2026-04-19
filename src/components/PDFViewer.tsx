@@ -18,8 +18,8 @@ const PDFViewer = ({ pdfPath, title, onClose }: PDFViewerProps) => {
   }, []);
 
   const modalContent = (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="relative w-full h-full max-w-7xl max-h-[90vh] m-4 flex flex-col bg-zinc-950 rounded-lg shadow-2xl border border-black/10">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/70 backdrop-blur-sm p-4">
+      <div className="relative w-full h-full max-w-7xl max-h-[90vh] m-4 flex flex-col bg-zinc-50 rounded-lg shadow-2xl border border-black/10">
         <div className="flex items-center justify-between p-4 border-b border-black/10">
           <h3 className="text-xl font-bold text-black" style={{ fontFamily: "'League Spartan', sans-serif" }}>
             {title}

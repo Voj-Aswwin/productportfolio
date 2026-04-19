@@ -8,6 +8,7 @@ import type { ProductType } from './components/ProductModal';
 import { Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import MorphingO from './components/MorphingO';
 import MorphingMoneySS from './components/MorphingMoneySS';
+import AskVojaswwin from './components/AskVojaswwin';
 
 
 // Custom icons using Lucide
@@ -727,7 +728,7 @@ function App() {
   }, [pageHeight, SHOW_VIBE_PLAYGROUND]);
 
   return (
-    <div className="relative min-h-screen min-h-dvh w-full overflow-x-hidden bg-black text-black">
+    <div className="relative min-h-screen min-h-dvh w-full overflow-x-hidden bg-white text-black">
       <CosmicBackground />
 
       {/* Hero Menu (kept outside the horizontally-transformed track so it stays centered on the first screen) */}
@@ -737,7 +738,7 @@ function App() {
       >
         <div
           ref={heroNavPillRef}
-          className="flex items-center justify-center gap-3 max-w-[92vw] rounded-full border border-black/15 bg-black/55 backdrop-blur px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] will-change-transform"
+          className="flex items-center justify-center gap-3 max-w-[92vw] rounded-full border border-black/15 bg-white/55 backdrop-blur px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] will-change-transform"
         >
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-1">
@@ -751,7 +752,7 @@ function App() {
                   className={[
                     'px-3 py-2 rounded-full text-sm font-bold transition-colors',
                     'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
-                    isActive ? 'bg-white text-black' : 'text-black hover:bg-black/10',
+                    isActive ? 'bg-black text-white' : 'text-black hover:bg-black/10',
                   ].join(' ')}
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                   aria-current={isActive ? 'page' : undefined}
@@ -795,7 +796,7 @@ function App() {
         </div>
 
         {mobileNavOpen && (
-          <div className="mt-2 rounded-2xl border border-black/15 bg-black/85 backdrop-blur px-2 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] md:hidden">
+          <div className="mt-2 rounded-2xl border border-black/15 bg-white/85 backdrop-blur px-2 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] md:hidden">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -805,7 +806,7 @@ function App() {
                   onClick={() => scrollToSection(item.id)}
                   className={[
                     'w-full text-left px-4 py-3 rounded-xl text-base font-bold transition-colors',
-                    isActive ? 'bg-white text-black' : 'text-black hover:bg-black/10',
+                    isActive ? 'bg-black text-white' : 'text-black hover:bg-black/10',
                   ].join(' ')}
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                   aria-current={isActive ? 'page' : undefined}
@@ -1151,6 +1152,9 @@ function App() {
 
         </div>
       </section>
+
+      {/* AI Chatbot — Ask Vojaswwin */}
+      <AskVojaswwin />
     </div>
   );
 }

@@ -30,7 +30,7 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
   return (
     <>
       <div className={compact ? 'mb-6 md:mb-6' : 'mb-12'}>
-        <h3 
+        <h3
           className={[
             'font-bold text-black',
             compact ? 'text-xl sm:text-2xl md:text-3xl mb-4' : 'text-2xl sm:text-3xl md:text-4xl mb-6',
@@ -51,7 +51,7 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
               key={`${artifact.path}-${index}`}
               onClick={() => setSelectedPdf({ path: artifact.path, name: artifact.name })}
               className={[
-                'group cursor-pointer bg-zinc-900 border border-black/10 rounded-lg overflow-hidden shadow-md shadow-black/40 hover:shadow-lg hover:border-black/15 transition-shadow duration-300',
+                'group cursor-pointer bg-white border border-black/10 rounded-lg overflow-hidden shadow-md shadow-black/5 hover:shadow-lg hover:border-black/20 transition-shadow duration-300',
                 compact ? 'hover:scale-[1.03]' : 'hover:shadow-lg',
               ].join(' ')}
             >
@@ -59,12 +59,12 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
                 <div
                   className={
                     compact
-                      ? 'aspect-[16/10] w-full bg-zinc-800 overflow-hidden'
-                      : 'aspect-[16/10] w-full bg-zinc-800 overflow-hidden'
+                      ? 'aspect-[16/10] w-full bg-zinc-100 overflow-hidden'
+                      : 'aspect-[16/10] w-full bg-zinc-100 overflow-hidden'
                   }
                 >
-                  <PDFThumbnail 
-                    pdfPath={artifact.path} 
+                  <PDFThumbnail
+                    pdfPath={artifact.path}
                     className="h-full w-full"
                   />
                 </div>
@@ -82,7 +82,7 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
                     {artifact.heading}
                   </h4>
                   <p
-                    className={`text-neutral-700 leading-relaxed line-clamp-2 ${compact ? 'text-sm' : 'text-[0.95rem] md:text-base'}`}
+                    className={`text-neutral-500 leading-relaxed line-clamp-2 ${compact ? 'text-sm' : 'text-[0.95rem] md:text-base'}`}
                     style={{ fontFamily: serif }}
                   >
                     {artifact.description}

@@ -43,7 +43,7 @@ const CosmicBackground = () => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseout', handleMouseLeave);
 
-    // Mostly black/grey with occasional red
+    // Professional colors: Mostly black/grey with occasional red
     const nodeColors = [
       '#000000', // Black
       '#000000', // Black (more weight)
