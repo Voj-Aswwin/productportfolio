@@ -8,6 +8,7 @@ import type { ProductType } from './components/ProductModal';
 import { Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import MorphingO from './components/MorphingO';
 import MorphingMoneySS from './components/MorphingMoneySS';
+import AskVojaswwin from './components/AskVojaswwin';
 
 
 // Custom icons using Lucide
@@ -727,7 +728,7 @@ function App() {
   }, [pageHeight, SHOW_VIBE_PLAYGROUND]);
 
   return (
-    <div className="relative min-h-screen min-h-dvh w-full overflow-x-hidden bg-black text-white">
+    <div className="relative min-h-screen min-h-dvh w-full overflow-x-hidden bg-white text-black">
       <CosmicBackground />
 
       {/* Hero Menu (kept outside the horizontally-transformed track so it stays centered on the first screen) */}
@@ -737,7 +738,7 @@ function App() {
       >
         <div
           ref={heroNavPillRef}
-          className="flex items-center justify-center gap-3 max-w-[92vw] rounded-full border border-white/15 bg-black/55 backdrop-blur px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] will-change-transform"
+          className="flex items-center justify-center gap-3 max-w-[92vw] rounded-full border border-black/15 bg-white/55 backdrop-blur px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] will-change-transform"
         >
           {/* Desktop */}
           <div className="hidden md:flex items-center gap-1">
@@ -751,7 +752,7 @@ function App() {
                   className={[
                     'px-3 py-2 rounded-full text-sm font-bold transition-colors',
                     'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
-                    isActive ? 'bg-white text-black' : 'text-white hover:bg-white/10',
+                    isActive ? 'bg-black text-white' : 'text-black hover:bg-black/10',
                   ].join(' ')}
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                   aria-current={isActive ? 'page' : undefined}
@@ -764,7 +765,7 @@ function App() {
             <button
               type="button"
               onClick={handleResumeDownload}
-              className="ml-1 px-3 py-2 rounded-full text-sm font-bold bg-red-600 text-white hover:bg-red-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+              className="ml-1 px-3 py-2 rounded-full text-sm font-bold bg-red-600 text-black hover:bg-red-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
               style={{ fontFamily: "'League Spartan', sans-serif" }}
             >
               Resume
@@ -776,7 +777,7 @@ function App() {
             <button
               type="button"
               onClick={handleResumeDownload}
-              className="px-3 py-2 rounded-full text-sm font-bold bg-red-600 text-white hover:bg-red-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+              className="px-3 py-2 rounded-full text-sm font-bold bg-red-600 text-black hover:bg-red-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
               style={{ fontFamily: "'League Spartan', sans-serif" }}
             >
               Resume
@@ -785,7 +786,7 @@ function App() {
             <button
               type="button"
               onClick={() => setMobileNavOpen((v) => !v)}
-              className="p-2 rounded-full text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+              className="p-2 rounded-full text-black hover:bg-black/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
               aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileNavOpen}
             >
@@ -795,7 +796,7 @@ function App() {
         </div>
 
         {mobileNavOpen && (
-          <div className="mt-2 rounded-2xl border border-white/15 bg-black/85 backdrop-blur px-2 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] md:hidden">
+          <div className="mt-2 rounded-2xl border border-black/15 bg-white/85 backdrop-blur px-2 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.65)] md:hidden">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -805,7 +806,7 @@ function App() {
                   onClick={() => scrollToSection(item.id)}
                   className={[
                     'w-full text-left px-4 py-3 rounded-xl text-base font-bold transition-colors',
-                    isActive ? 'bg-white text-black' : 'text-white hover:bg-white/10',
+                    isActive ? 'bg-black text-white' : 'text-black hover:bg-black/10',
                   ].join(' ')}
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                   aria-current={isActive ? 'page' : undefined}
@@ -827,7 +828,7 @@ function App() {
               {/* Left Side - Text */}
               <div className="w-full md:flex-1 md:h-full flex flex-col justify-center md:justify-center items-start md:translate-x-4 lg:translate-x-6">
                 <h1
-                  className="font-league font-black tracking-tight leading-[0.9] text-white select-none text-left w-full flex flex-col gap-[clamp(0.25rem,1.2vmin,1.1rem)]"
+                  className="font-league font-black tracking-tight leading-[0.9] text-black select-none text-left w-full flex flex-col gap-[clamp(0.25rem,1.2vmin,1.1rem)]"
                   style={{ fontSize: 'clamp(3.25rem, 22vmin, 80vmin)' }}
                 >
                   <span className="block">
@@ -856,7 +857,7 @@ function App() {
                       &amp;
                     </span>
                     {' '}
-                    <span className="inline-block -ml-[0.06em] text-white">Tech.</span>
+                    <span className="inline-block -ml-[0.06em] text-black">Tech.</span>
                   </span>
                 </h1>
 
@@ -870,7 +871,7 @@ function App() {
                       href={href}
                       target={href.startsWith('mailto:') ? undefined : '_blank'}
                       rel={href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:border-white/25 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                      className="inline-flex items-center gap-2 rounded-full border border-black/15 bg-black/[0.06] px-4 py-2 text-sm font-bold text-black shadow-sm transition-colors hover:border-black/25 hover:bg-black/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                       style={{ fontFamily: "'League Spartan', sans-serif" }}
                     >
                       <Icon className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
@@ -1004,7 +1005,7 @@ function App() {
           >
             <div ref={secondPageRef} className="w-full max-w-7xl opacity-0">
               <h2
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-12 md:mb-16 text-center"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
                 style={{ fontFamily: "'League Spartan', sans-serif" }}
               >
                 Proof of Work
@@ -1022,7 +1023,7 @@ function App() {
               <div className="mt-16 md:mt-20 text-center">
                 <button
                   onClick={handleResumeDownload}
-                  className="text-xl md:text-2xl font-bold text-white hover:text-neutral-300 hover:underline transition-all"
+                  className="text-xl md:text-2xl font-bold text-black hover:text-neutral-700 hover:underline transition-all"
                   style={{ fontFamily: "'League Spartan', sans-serif" }}
                 >
                   Download Resume
@@ -1043,24 +1044,24 @@ function App() {
             style={{ background: 'transparent' }}
           >
             <div className="w-full max-w-5xl mx-auto">
-              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
+              <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-black/[0.06] backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
                 {/* subtle accent */}
                 <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
                 <div className="mx-auto max-w-4xl text-center">
                   <div className="mb-6 flex items-center justify-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
-                    <span className="h-[1px] w-20 bg-white/20" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-black/25" />
+                    <span className="h-[1px] w-20 bg-black/20" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-black/25" />
                   </div>
 
                   <p
-                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug tracking-tight"
+                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-black leading-snug tracking-tight"
                     style={{ fontFamily: "'League Spartan', sans-serif" }}
                   >
-                    <span className="inline-block align-top text-white/35 mr-2">“</span>
+                    <span className="inline-block align-top text-black/35 mr-2">“</span>
                     Great product work is clarity: a crisp problem, a simple solution, and feedback loops that never stop.
-                    <span className="inline-block align-top text-white/35 ml-2">”</span>
+                    <span className="inline-block align-top text-black/35 ml-2">”</span>
                   </p>
                 </div>
               </div>
@@ -1073,7 +1074,7 @@ function App() {
               className="w-full max-w-7xl opacity-0"
             >
               <h2
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-12 md:mb-16 text-center"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
                 style={{ fontFamily: "'League Spartan', sans-serif" }}
               >
                 Vibe Coders Playground
@@ -1093,23 +1094,23 @@ function App() {
         style={{ background: 'transparent' }}
       >
         <div className="w-full max-w-5xl mx-auto">
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
+          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-black/[0.06] backdrop-blur-md px-6 py-10 md:px-12 md:py-14 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
             <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
             <div className="mx-auto max-w-4xl text-center">
               <div className="mb-6 flex items-center justify-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
-                <span className="h-[1px] w-20 bg-white/20" />
-                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+                <span className="h-1.5 w-1.5 rounded-full bg-black/25" />
+                <span className="h-[1px] w-20 bg-black/20" />
+                <span className="h-1.5 w-1.5 rounded-full bg-black/25" />
               </div>
 
               <p
-                className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-snug tracking-tight"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-black leading-snug tracking-tight"
                 style={{ fontFamily: "'League Spartan', sans-serif" }}
               >
-                <span className="inline-block align-top text-white/35 mr-2">“</span>
+                <span className="inline-block align-top text-black/35 mr-2">“</span>
                 Stay curious, do the hard thinking, and ship with empathy.
-                <span className="inline-block align-top text-white/35 ml-2">”</span>
+                <span className="inline-block align-top text-black/35 ml-2">”</span>
               </p>
             </div>
           </div>
@@ -1122,14 +1123,14 @@ function App() {
           className="w-full max-w-4xl opacity-0"
         >
           <h2
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-12 md:mb-16 text-center"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-black mb-12 md:mb-16 text-center"
             style={{ fontFamily: "'League Spartan', sans-serif" }}
           >
             About Me
           </h2>
 
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur-md px-6 py-10 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
-            <div className="space-y-6 md:space-y-8 text-lg md:text-xl lg:text-2xl text-neutral-200 leading-relaxed">
+          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-black/[0.06] backdrop-blur-md px-6 py-10 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
+            <div className="space-y-6 md:space-y-8 text-lg md:text-xl lg:text-2xl text-neutral-800 leading-relaxed">
               <p style={{ fontFamily: "'League Spartan', sans-serif" }}>
                 I am Vojaswwin A P. I like building products that feel simple on the outside and are thoughtfully engineered on the inside.
                 I’m doing a PGP in Technology &amp; Business Management at Masters’ Union, and I bring 4 years of experience from Thoughtworks.
@@ -1151,6 +1152,9 @@ function App() {
 
         </div>
       </section>
+
+      {/* AI Chatbot — Ask Vojaswwin */}
+      <AskVojaswwin />
     </div>
   );
 }

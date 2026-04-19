@@ -43,13 +43,13 @@ const CosmicBackground = () => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseout', handleMouseLeave);
 
-    // Vibrant primary-like colors for the constellation
+    // Professional colors: Mostly black/grey with occasional red
     const nodeColors = [
-      '#FF2A2A', // Vibrant Red
-      '#0066FF', // Bright Blue
-      '#00DD44', // Lime/Green
-      '#FFB800', // Yellow/Orange
-      '#8A2BE2', // Blue Violet
+      '#000000', // Black
+      '#000000', // Black (more weight)
+      '#333333', // Dark Grey
+      '#666666', // Medium Grey
+      '#FF2A2A', // Vibrant Red (less frequent)
     ];
 
     // Particles — bright nodes
@@ -78,8 +78,8 @@ const CosmicBackground = () => {
     let animationFrame: number;
 
     const animate = () => {
-      // Dark base so constellation reads as inverted from the prior light theme
-      ctx.fillStyle = '#000000';
+      // Light base
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, width, height);
 
       for (let i = 0; i < particles.length; i++) {
@@ -181,7 +181,7 @@ const CosmicBackground = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0 h-full min-h-dvh w-full min-w-full bg-black"
+      className="pointer-events-none fixed inset-0 z-0 h-full min-h-dvh w-full min-w-full bg-white"
     />
   );
 };
