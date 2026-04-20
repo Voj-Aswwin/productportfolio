@@ -32,8 +32,8 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
       <div className={compact ? 'mb-6 md:mb-6' : 'mb-12'}>
         <h3
           className={[
-            'font-bold text-black',
-            compact ? 'text-xl sm:text-2xl md:text-3xl mb-4' : 'text-2xl sm:text-3xl md:text-4xl mb-6',
+            'font-bold text-black underline decoration-red-600 decoration-[3px] underline-offset-[8px]',
+            compact ? 'text-xl sm:text-2xl md:text-3xl mb-6' : 'text-2xl sm:text-3xl md:text-4xl mb-8',
           ].join(' ')}
           style={{ fontFamily: "'League Spartan', sans-serif" }}
         >
@@ -41,7 +41,9 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
         </h3>
         <div
           className={
-            compact
+            artifacts.length === 1
+              ? 'grid grid-cols-1 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-12'
+              : compact
               ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4'
               : 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-10 md:gap-x-8 md:gap-y-12'
           }

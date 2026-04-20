@@ -1014,9 +1014,17 @@ function App() {
               {/* Back to vertical flow like before */}
               <div className="space-y-16 md:space-y-20">
                 <ArtifactGallery title="Product teardowns" artifacts={productTeardownsArtifacts} />
-                <ArtifactGallery title="AI evaluations" artifacts={aiEvalArtifacts} />
-                <ArtifactGallery title="Product design" artifacts={productDesignArtifacts} />
-                <ArtifactGallery title="PRD" artifacts={prdArtifacts} />
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-start">
+                  <div className="[&>div]:mb-0">
+                    <ArtifactGallery title="Product design" artifacts={productDesignArtifacts} />
+                  </div>
+                  <div className="[&>div]:mb-0">
+                    <ArtifactGallery title="AI evaluations" artifacts={aiEvalArtifacts} />
+                  </div>
+                  <div className="[&>div]:mb-0">
+                    <ArtifactGallery title="PRD" artifacts={prdArtifacts} />
+                  </div>
+                </div>
                 <ArtifactGallery title="Case competitions" artifacts={caseCompetitionArtifacts} />
               </div>
 

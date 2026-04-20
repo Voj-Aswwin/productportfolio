@@ -123,16 +123,6 @@ export default function AskVojaswwin() {
     setIsLoading(true);
 
     try {
-      const apiKey = import.meta.env.GEMINI_API_KEY;
-      if (!apiKey) {
-        setMessages((prev) => [
-          ...prev,
-          { role: 'assistant', content: 'Oops — the Gemini API key isn\'t configured yet. Please set `GEMINI_API_KEY` in the `.env` file.' },
-        ]);
-        setIsLoading(false);
-        return;
-      }
-
       const fullSystemPrompt = SYSTEM_PROMPT + (knowledgeBase || '');
 
       // Build conversation history for context
@@ -152,22 +142,11 @@ export default function AskVojaswwin() {
         })),
       ];
 
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents,
-            generationConfig: {
-              temperature: 0.7,
-              topP: 0.9,
-              topK: 40,
-              maxOutputTokens: 512,
-            },
-          }),
-        }
-      );
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contents }),
+      });
 
       const data = await response.json();
       if (!response.ok) {
