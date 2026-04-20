@@ -82,7 +82,7 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
                     {artifact.heading}
                   </h4>
                   <p
-                    className={`text-neutral-500 leading-relaxed line-clamp-2 ${compact ? 'text-sm' : 'text-[0.95rem] md:text-base'}`}
+                    className={`text-neutral-500 leading-relaxed ${compact ? 'text-sm' : 'text-[0.95rem] md:text-base'}`}
                     style={{ fontFamily: serif }}
                   >
                     {artifact.description}

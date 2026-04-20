@@ -183,7 +183,6 @@ export default function AskVojaswwin() {
         ...prev,
         { role: 'assistant', content: `Oops! 🚨 ${err.message || 'Something went wrong connecting to Gemini.'}` },
       ]);
-      ]);
     } finally {
       setIsLoading(false);
     }
