@@ -12,6 +12,8 @@ export interface ArtifactCard {
   heading: string;
   /** Two-line summary of what the PDF contains */
   description: string;
+  /** Optional static thumbnail image path */
+  thumbnail?: string;
 }
 
 interface ArtifactGalleryProps {
@@ -65,10 +67,19 @@ const ArtifactGallery = ({ title, artifacts, compact = false }: ArtifactGalleryP
                       : 'aspect-[16/10] w-full bg-zinc-100 overflow-hidden'
                   }
                 >
-                  <PDFThumbnail
-                    pdfPath={artifact.path}
-                    className="h-full w-full"
-                  />
+                  {artifact.thumbnail ? (
+                    <img
+                      src={artifact.thumbnail}
+                      alt={artifact.heading}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <PDFThumbnail
+                      pdfPath={artifact.path}
+                      className="h-full w-full"
+                    />
+                  )}
                 </div>
                 <div className={compact ? 'p-3 flex flex-col flex-1 text-left' : 'p-4 md:p-5 flex flex-col flex-1 text-left'}>
                   <p

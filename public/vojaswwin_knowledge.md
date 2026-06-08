@@ -109,9 +109,9 @@ I built enterprise products for global consulting firms and retail clients. Here
 
    - Teardown of "Ask Maps" in India: Gemini-style conversational answers inside Maps, refinement flows, and how monetisation shows up beside "helpful" replies. Contrasts classic search with the new conversational surface.
    - Covers: target audience, historical user journey, rationale for regional rollout, revenue implications, monetisation strategies, AAARRR user journey mapping, success metrics, risk management, and product improvements.
-2. **InShot** — The quiet ritual hiding inside a billion casual edits
+2. **inshort** — The quiet ritual hiding inside a billion casual edits
 
-   - Feature-level teardown of InShot for daily creators: habit loops, the "daily ritual" angle, and what keeps trimming and posting frictionless. PM view on retention hooks versus switching costs.
+   - Feature-level teardown of inshort for daily creators: habit loops, the "daily ritual" angle, and what keeps trimming and posting frictionless. PM view on retention hooks versus switching costs.
 3. **The Souled Store** — Merch, music, and the impulse buy dressed as identity
 
    - App teardown for The Souled Store: fandom catalogue psychology, loyalty touches, and checkout tuned for cult commerce. Where the experience sings—and where the funnel still leaves money on the table.

@@ -5,6 +5,8 @@ import CosmicBackground from './components/CosmicBackground';
 import ArtifactGallery from './components/ArtifactGallery';
 import ProductShowcase from './components/ProductShowcase';
 import type { ProductType } from './components/ProductModal';
+import StartupShowcase from './components/StartupShowcase';
+import type { StartupType } from './components/StartupShowcase';
 import { Github, Linkedin, Mail, Menu, X } from 'lucide-react';
 import MorphingO from './components/MorphingO';
 import MorphingMoneySS from './components/MorphingMoneySS';
@@ -29,7 +31,7 @@ function App() {
     []
   );
 
-  /** From résumé PDF hyperlinks (Artefacts/Resume/Vojaswwin_PM_Resume.pdf) */
+  /** From résumé PDF hyperlinks (Artefacts/Resume/Vojaswwin_Product_Resume.pdf) */
   const heroContactLinks = useMemo(
     () =>
       [
@@ -399,6 +401,7 @@ function App() {
       heading: 'Solo at a gig should feel like an invitation, not a dare',
       description:
         'PRD encouraging solo attendance at live events: the hesitation loop, social proof, and features that help strangers become a crowd you chose. Scope, MVP slice, release target, and owner roles spelled out.',
+      thumbnail: '/thumbnails/bookmyshow.png',
     },
   ];
 
@@ -412,12 +415,13 @@ function App() {
         'Teardown of Ask Maps in India: Gemini-style conversational answers inside Maps, refinement flows, and how monetisation shows up beside “helpful” replies. Contrasts classic search with the new conversational surface.',
     },
     {
-      name: 'InShot — teardown.pdf',
-      path: '/Artefacts/Product Teardowns/Inshots.pdf',
+      name: 'inshort — teardown.pdf',
+      path: '/Artefacts/Product Teardowns/inshorts.pdf',
       category: 'Product teardown',
       heading: 'The quiet ritual hiding inside a billion casual edits',
       description:
-        'Feature-level teardown of InShot for daily creators: habit loops, the “daily ritual” angle, and what keeps trimming and posting frictionless. PM view on retention hooks versus switching costs.',
+        'Feature-level teardown of inshort for daily creators: habit loops, the “daily ritual” angle, and what keeps trimming and posting frictionless. PM view on retention hooks versus switching costs.',
+      thumbnail: '/thumbnails/inshort.png',
     },
     {
       name: 'The Souled Store — teardown.pdf',
@@ -434,6 +438,7 @@ function App() {
       heading: 'Infinite canvas, zero patience—speed as the real feature',
       description:
         'Excalidraw teardown on why “fast and light” beats feature sprawl for whiteboards: collaboration, exports, and positioning against heavier diagramming suites. Notes on who wins when latency is the UX.',
+      thumbnail: '/thumbnails/excalidraw.png',
     },
   ];
 
@@ -445,6 +450,7 @@ function App() {
       heading: 'Grading models the way users actually feel the answer',
       description:
         'Structured evaluation work on Sarvam / Indus outputs: rubrics for usefulness, tone, and local context when models answer messy real-world prompts. Method, sample runs, and what “good” looked like on review.',
+      thumbnail: '/thumbnails/sarvam.png',
     },
   ];
 
@@ -462,10 +468,26 @@ function App() {
     }
   ];
 
+  const startups: StartupType[] = [
+    {
+      id: 'ahar',
+      name: 'Ahar.AI',
+      tagline: 'AI-powered Restaurant Management Software',
+      videoEmbedUrl: 'https://drive.google.com/file/d/1_XNZbNd_GjUb_CaV8VE1-EDslKPde-ax/preview?autoplay=1',
+      description:'Ahar is an AI-driven restaurant management platform built to eliminate the operational chaos that kills most F&B businesses before they scale',
+      myRole: 'Product Lead & Co-founder',
+      contributions: [
+        'User Research & Problem Space — Interviewed restaurant owners across QSR and fine-dining to pinpoint the biggest operational leaks in procurement and margin management.',
+        'AI System Design — Built event-driven AI agents that cut manual ops by 12 hrs/week and redesigned the chatbot architecture to slash LLM inference costs by 85%.',
+        'Technical Execution — Shipped a Sales Prediction ML model at 93% accuracy and delivered the full MVP in 6 weeks.',
+      ],
+    },
+  ];
+
   const handleResumeDownload = () => {
     const link = document.createElement('a');
-    link.href = '/Artefacts/Resume/Vojaswwin_PM_Resume.pdf';
-    link.download = 'Vojaswwin_PM_Resume.pdf';
+    link.href = '/Artefacts/Resume/Vojaswwin_Product_Resume.pdf';
+    link.download = 'Vojaswwin_Product_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -826,7 +848,7 @@ function App() {
           <section id="home" className="relative h-[100svh] w-full md:w-screen flex items-stretch px-4 sm:px-8 md:px-16 lg:px-24 py-0 scroll-mt-28">
             <div ref={heroRowRef} className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-stretch justify-between gap-10 md:gap-12 h-full">
               {/* Left Side - Text */}
-              <div className="w-full md:flex-1 md:h-full flex flex-col justify-center md:justify-center items-start md:translate-x-4 lg:translate-x-6">
+              <div className="w-full md:w-1/2 md:h-full flex flex-col justify-center md:justify-center items-start md:translate-x-4 lg:translate-x-6 relative z-10">
                 <h1
                   className="font-league font-black tracking-tight leading-[0.9] text-black select-none text-left w-full flex flex-col gap-[clamp(0.25rem,1.2vmin,1.1rem)]"
                   style={{ fontSize: 'clamp(3.25rem, 22vmin, 80vmin)' }}
@@ -881,69 +903,68 @@ function App() {
                 </div>
               </div>
 
-              {/* Right Side - Image */}
-              <div className="w-full md:flex-1 md:h-full flex justify-center md:justify-start items-end md:-translate-x-10 lg:-translate-x-14 xl:-translate-x-16">
-                <div className="relative">
-                  <img
-                    ref={heroImgRef}
-                    src="/HeroSectionImage.png"
-                    alt="Portrait"
-                    className="block h-[82svh] lg:h-[86svh] xl:h-[88svh] w-auto max-w-[92vw] md:max-w-none object-contain select-none pointer-events-none"
-                    draggable={false}
-                    onLoad={() => {
-                      const img = heroImgRef.current;
-                      try {
-                        if (!img || !img.naturalWidth || !img.naturalHeight) return;
+            </div>
 
-                        const canvas = document.createElement('canvas');
-                        canvas.width = img.naturalWidth;
-                        canvas.height = img.naturalHeight;
-                        const ctx = canvas.getContext('2d', { willReadFrequently: true });
-                        if (!ctx) return;
+            {/* Hero Image - absolute background layer so text and animations render on top */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden flex items-end justify-center md:justify-start md:-translate-x-10 lg:-translate-x-14 xl:-translate-x-16">
+              <img
+                ref={heroImgRef}
+                src="/HeroSectionImage.png"
+                alt="Portrait"
+                className="block h-[82svh] lg:h-[86svh] xl:h-[88svh] w-auto max-w-[92vw] md:max-w-none object-contain select-none pointer-events-none"
+                draggable={false}
+                onLoad={() => {
+                  const img = heroImgRef.current;
+                  try {
+                    if (!img || !img.naturalWidth || !img.naturalHeight) return;
 
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        ctx.drawImage(img, 0, 0);
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
+                    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                    if (!ctx) return;
 
-                        const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        const w = canvas.width;
-                        const h = canvas.height;
-                        const alphaThreshold = 8; // 0..255 (ignore near-transparent pixels)
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
 
-                        let minX = w,
-                          minY = h,
-                          maxX = -1,
-                          maxY = -1;
-                        for (let y = 0; y < h; y++) {
-                          const row = y * w * 4;
-                          for (let x = 0; x < w; x++) {
-                            const a = data[row + x * 4 + 3];
-                            if (a > alphaThreshold) {
-                              if (x < minX) minX = x;
-                              if (y < minY) minY = y;
-                              if (x > maxX) maxX = x;
-                              if (y > maxY) maxY = y;
-                            }
-                          }
+                    const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const w = canvas.width;
+                    const h = canvas.height;
+                    const alphaThreshold = 8;
+
+                    let minX = w,
+                      minY = h,
+                      maxX = -1,
+                      maxY = -1;
+                    for (let y = 0; y < h; y++) {
+                      const row = y * w * 4;
+                      for (let x = 0; x < w; x++) {
+                        const a = data[row + x * 4 + 3];
+                        if (a > alphaThreshold) {
+                          if (x < minX) minX = x;
+                          if (y < minY) minY = y;
+                          if (x > maxX) maxX = x;
+                          if (y > maxY) maxY = y;
                         }
-
-                        const hasOpaque = maxX >= 0 && maxY >= 0 && minX < w && minY < h;
-                        if (!hasOpaque) {
-                          heroAlphaRef.current = null;
-                          return;
-                        }
-
-                        heroAlphaRef.current = {
-                          naturalW: w,
-                          naturalH: h,
-                          bbox: { minX, minY, maxX, maxY, w: maxX - minX + 1, h: maxY - minY + 1 },
-                        };
-                      } finally {
-                        applyHeroSubjectCentering();
                       }
-                    }}
-                  />
-                </div>
-              </div>
+                    }
+
+                    const hasOpaque = maxX >= 0 && maxY >= 0 && minX < w && minY < h;
+                    if (!hasOpaque) {
+                      heroAlphaRef.current = null;
+                      return;
+                    }
+
+                    heroAlphaRef.current = {
+                      naturalW: w,
+                      naturalH: h,
+                      bbox: { minX, minY, maxX, maxY, w: maxX - minX + 1, h: maxY - minY + 1 },
+                    };
+                  } finally {
+                    applyHeroSubjectCentering();
+                  }
+                }}
+              />
             </div>
 
             {/* Name overlay (desktop+): centered in the right half of the viewport */}
@@ -1013,6 +1034,16 @@ function App() {
 
               {/* Back to vertical flow like before */}
               <div className="space-y-16 md:space-y-20">
+                {/* Startups */}
+                <div>
+                  <h3
+                    className="text-xl sm:text-2xl md:text-3xl font-bold text-black underline decoration-red-600 decoration-[3px] underline-offset-[8px] mb-8"
+                    style={{ fontFamily: "'League Spartan', sans-serif" }}
+                  >
+                    Startups
+                  </h3>
+                  <StartupShowcase startups={startups} />
+                </div>
                 <ArtifactGallery title="Product teardowns" artifacts={productTeardownsArtifacts} />
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-start">
                   <div className="[&>div]:mb-0">
